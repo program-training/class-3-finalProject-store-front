@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
+import { useState } from "react";
 
 const defaultTheme = createTheme();
 
@@ -26,28 +27,34 @@ export default function SignUp() {
   formState: { errors },
  } = useForm();
  const password: UseFormWatch<Text> = watch("password");
-
-
+ const [success, setSuccess] = useState<boolean>(false)
+ const [customError, setCustomError] = useState<string | undefined>(undefined)
+ const [disable, setDisable] = useState<boolean>(false)
  const onSubmit = async (data: FieldValues) => {
   data = { email: data.email, password: data.password };
   try {
-   const api = await axios.post(`${import.meta.env.VITE_BASE_URL}users/signUp`, data);
+   const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users`, data);
    if (api.statusText === "OK") {
-    localStorage.setItem("userId", JSON.stringify(api.data.userId));
+    localStorage.setItem("token", JSON.stringify(api.data.token));
     localStorage.setItem("email", JSON.stringify(data.email));
-    alert("You have successfully registered");
+    setSuccess(true);
     navigate(location.state?.from || "/");
    } else {
     throw new Error("Existing user, please sign in");
    }
   } catch (error) {
-   alert(error);
+   setCustomError((error as Error).message)
+   console.log(customError);
+   setDisable(true)
+
   }
  };
 
  return (
   <ThemeProvider theme={defaultTheme}>
-   <Container component="main" maxWidth="xs">
+   <Container sx={{
+    display: disable ? "none" : "auto"
+   }} component="main" maxWidth="xs">
     <CssBaseline />
     <Box
      sx={{
@@ -131,6 +138,7 @@ export default function SignUp() {
         {errors.confirmPassword && <ErrorMessage errors={errors} name="confirmPassword" render={({ message }) => <p>{message}</p>} />}
        </Grid>
       </Grid>
+      {success && <span>You have successfully registered</span>}
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
        Sign Up
       </Button>
@@ -144,6 +152,7 @@ export default function SignUp() {
      </Box>
     </Box>
    </Container>
+   <Grid>{customError}</Grid>
   </ThemeProvider>
  );
 }

@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -23,16 +23,16 @@ export default function SignIn() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const location = useLocation();
+  
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}users/signIn`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("userId", JSON.stringify(api.data.userId));
         localStorage.setItem("email", JSON.stringify(data.email));
         alert("User is logged in");
-        navigate(location.state?.from || "/");
+        navigate("/products");
       } else {
         throw new Error("User does not exist");
       }

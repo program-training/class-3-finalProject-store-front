@@ -18,7 +18,7 @@ export default function Products() {
 
  const getProducts = async () => {
   try {
-   const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products`);
+   const productsResult = await axios.get(`${env.VITE_BASE_URL}/products/`);
    setProducts(productsResult.data);
    console.log(products);
 

@@ -15,6 +15,7 @@ export default function ProductPage() {
           throw new Error(`data can't found`);
         }
         setProduct(result.data);
+        console.log(product);
       } catch (error) {
         console.log(error);
       }

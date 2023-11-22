@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 export default function SendOrders() {
@@ -33,10 +32,7 @@ export default function SendOrders() {
         },
       };
 
-      const response = await axios.post(
-        `http://localhost:5050/orders/order`,
-        sampleOrder
-      );
+      const response = await axios.post(`http://localhost:5050/orders/order`, sampleOrder);
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error sending order:", error);

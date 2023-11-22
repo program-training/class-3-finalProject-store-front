@@ -27,7 +27,7 @@ export default function SignIn() {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("userId", JSON.stringify(api.data.userId));
         localStorage.setItem("email", JSON.stringify(data.email));
@@ -93,6 +93,7 @@ export default function SignIn() {
               fullWidth
               type="password"
               label="Password"
+              
             />
             {errors.password && <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />}
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

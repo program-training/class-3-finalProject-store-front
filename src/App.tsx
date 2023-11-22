@@ -3,7 +3,6 @@ import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
 import Products from "./components/Products/Products";
 import ProductPage from "./components/productPage/ProductPage";
-
 function App() {
   return (
     <>

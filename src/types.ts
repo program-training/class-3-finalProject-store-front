@@ -10,3 +10,9 @@ export interface IProduct {
     alt: string;
   };
 }
+
+type productType = Partial<IProduct>;
+export interface UserCart {
+  product: productType;
+  quantity: number;
+}

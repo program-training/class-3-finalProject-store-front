@@ -92,6 +92,7 @@ export default function SignIn() {
               fullWidth
               type="password"
               label="Password"
+              
             />
             {errors.password && <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />}
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

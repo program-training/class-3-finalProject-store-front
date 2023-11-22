@@ -18,38 +18,37 @@ import { useState } from "react";
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const password: UseFormWatch<Text> = watch("password");
-  const [success, setSuccess] = useState<boolean>(false);
-  const [customError, setCustomError] = useState<string | undefined>(undefined);
-  const [disable, setDisable] = useState<boolean>(false);
-  const onSubmit = async (data: FieldValues) => {
-    data = { email: data.email, password: data.password };
-    console.log(data);
-    try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
-      if (api.statusText === "OK") {
-        localStorage.setItem("token", JSON.stringify(api.data.token));
-        localStorage.setItem("email", JSON.stringify(data.email));
-        setSuccess(true);
-        navigate(location.state?.from || "/");
-      } else {
-        throw new Error("Existing user, please sign in");
-      }
-    } catch (error) {
-      setCustomError((error as Error).message);
-      console.log(customError);
-      setDisable(true);
-    }
-  };
-
+ const navigate = useNavigate();
+ const location = useLocation();
+ const {
+  register,
+  handleSubmit,
+  watch,
+  formState: { errors },
+ } = useForm();
+ const password: UseFormWatch<Text> = watch("password");
+ const [success, setSuccess] = useState<boolean>(false)
+ const [customError, setCustomError] = useState<string | undefined>(undefined)
+ const [disable, setDisable] = useState<boolean>(false)
+ const onSubmit = async (data: FieldValues) => {
+  data = { email: data.email, password: data.password };
+  console.log(data);
+  try {
+   console.log(data);
+   const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
+   if (api.statusText === "OK") {
+    localStorage.setItem("token", JSON.stringify(api.data.token));
+    localStorage.setItem("email", JSON.stringify(data.email));
+    setSuccess(true);
+    navigate(location.state?.from || "/");
+   } else {
+    throw new Error("Existing user, please sign in");
+   }
+  } catch (error) {
+   setCustomError((error as Error).message)
+   console.log(customError);
+   setDisable(true)
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container
@@ -159,4 +158,4 @@ export default function SignUp() {
       <Grid>{customError}</Grid>
     </ThemeProvider>
   );
-}
+} 

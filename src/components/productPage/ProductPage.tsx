@@ -11,10 +11,8 @@ export default function ProductPage() {
     async function getData() {
       try {
         const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/${productId.get("productId")}`);
-        if (result.statusText === "OK") {
-          throw new Error(`data can't found`);
-        }
-        setProduct(result.data);
+        if (result.statusText === "OK") setProduct(result.data);
+        else throw new Error(`data can't found`);
       } catch (error) {
         console.log(error);
       }

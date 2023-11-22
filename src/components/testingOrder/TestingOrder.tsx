@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 export default function SendOrders() {
@@ -32,11 +31,7 @@ export default function SendOrders() {
           orderType: "Express",
         },
       };
-
-      const response = await axios.post(
-        `http://localhost:5050/orders/order`,
-        sampleOrder
-      );
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/orders/order`, sampleOrder);
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error sending order:", error);

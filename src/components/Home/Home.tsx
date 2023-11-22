@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
@@ -17,7 +17,7 @@ export default function Home() {
 
   const getProducts = async () => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products`);
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/`);
       setProducts(productsResult.data);
       console.log(products);
     } catch (error) {
@@ -37,12 +37,21 @@ export default function Home() {
     <>
       {products !== null ? (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-          {products?.map((item) => (
-            <Card sx={{ maxWidth: 345 }} onClick={() => handelNavAndRedux}>
-              <CardMedia sx={{ height: 140 }} image={item.image.url} title="green iguana" />
+          {products?.map((product) => (
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia sx={{ height: 140 }} image={product.image.large} title={product.image.alt} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {item.name}
+                  {product.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {product.description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {product.category}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  quantity:{product.quantity}
                 </Typography>
               </CardContent>
             </Card>

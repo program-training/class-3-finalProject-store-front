@@ -23,11 +23,10 @@ export default function SignIn() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("userId", JSON.stringify(api.data.userId));
         localStorage.setItem("email", JSON.stringify(data.email));

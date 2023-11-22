@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
+import { log } from "console";
 
 const defaultTheme = createTheme();
 
@@ -33,19 +34,22 @@ export default function SignUp() {
 
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
-    console.log(data);
     try {
-      console.log(data);
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL_DEPLOYMENT}/api/users/register`, data);
+      console.log(api.data);
+      console.log("test");
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data.token));
         localStorage.setItem("email", JSON.stringify(data.email));
+        console.log("test2");
         setSuccess(true);
         navigate(location.state?.from || "/");
       } else {
+        console.log("test3");
         throw new Error("Existing user, please sign in");
       }
     } catch (error) {
+      console.log("test4");
       setCustomError((error as Error).message);
       console.log(customError);
       setDisable(true);

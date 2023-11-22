@@ -6,7 +6,9 @@ export interface IProduct {
   category: string;
   discountPercentage: number;
   image: {
-    url: string;
+    large: string;
+    medium: string;
+    small: string;
     alt: string;
   };
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../types";
@@ -6,11 +6,17 @@ import { Box, CardActionArea, CardContent, Grid, Stack, Tooltip, Typography, Car
 import IconButton from "@mui/material/IconButton";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import ProductsSkelton from "./ProductsSkelton";
 
 export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
+
+  const componentsArr: React.ReactNode[] = [];
+  for (let i = 0; i <= 6; i++) {
+    componentsArr.push(<ProductsSkelton key={i} />);
+  }
 
   const handleAddToCart = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -42,9 +48,9 @@ export default function Home() {
   return (
     <>
       {products !== null ? (
-        <Box width="100%" my={4} display="flex" alignItems="center" flexWrap="wrap" gap={4} >
+        <Box my={4} display="flex" alignItems="center" flexWrap="wrap" gap={4}>
           <div style={{ padding: "6rem 8rem 10rem 8rem" }}>
-            <Grid container spacing={3} >
+            <Grid container spacing={3} justifyContent="center">
               {Array.isArray(products) &&
                 products.map((product, index) => (
                   <Grid item sm={8} md={4} lg={2} p={3} key={index} border="2px solid #5896" margin="13px" borderRadius="33px">
@@ -67,53 +73,51 @@ export default function Home() {
                                 before discount: ${product.salePrice}
                               </Typography>
                             )}
-                            {product.discountPercentage && <Typography variant="h6">after discount: ${product.salePrice - product.salePrice * (product.discountPercentage / 100)}</Typography>}
+                            {product.discountPercentage && <Typography variant="h6">after discount: ${(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
                           </Stack>
                         </Stack>
                       </CardContent>
                       <CardActions>
-                      <Tooltip title="Add To Cart">
-                        <IconButton
-                          onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bottom: "15px",
-                            right: "15px",
-                            position: "absolute",
-                            background: "#3f51b5",
-                            color: "white",
-                            "&:hover": {
-                              background: "green",
-                            },
-                          }}
-                        >
-                          <AddShoppingCartIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="View Chart">
-                        <IconButton
-                          onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bottom: "15px",
-                            right: "60px",
-                            position: "absolute",
-                            background: "#3f51b5",
-                            color: "white",
-                            "&:hover": {
-                              background: "green",
-                            },
-                          }}
-                        >
-                          <BarChartIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </CardActions>
-
+                        <Tooltip title="Add To Cart">
+                          <IconButton
+                            onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
+                            size="small"
+                            color="primary"
+                            sx={{
+                              bottom: "15px",
+                              right: "15px",
+                              position: "absolute",
+                              background: "#3f51b5",
+                              color: "white",
+                              "&:hover": {
+                                background: "green",
+                              },
+                            }}
+                          >
+                            <AddShoppingCartIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="View Chart">
+                          <IconButton
+                            onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
+                            size="small"
+                            color="primary"
+                            sx={{
+                              bottom: "15px",
+                              right: "60px",
+                              position: "absolute",
+                              background: "#3f51b5",
+                              color: "white",
+                              "&:hover": {
+                                background: "green",
+                              },
+                            }}
+                          >
+                            <BarChartIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </CardActions>
                     </CardActionArea>
-
                   </Grid>
                 ))}
             </Grid>
@@ -121,6 +125,7 @@ export default function Home() {
         </Box>
       ) : (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
+          {componentsArr}
         </Box>
       )}
     </>

@@ -11,7 +11,7 @@ export default function ProductPage() {
   useEffect(() => {
     async function getData() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/${productId.get("productId")}`);
+        const result = await axios.get(`${import.meta.env.VITE_BASE_URL_DEPLOYMENT}/products/${productId.get("productId")}`);
         if (result.statusText === "OK") setProduct(result.data);
         else throw new Error(`data can't found`);
       } catch (error) {

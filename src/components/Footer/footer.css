@@ -1,0 +1,8 @@
+.footerStore {
+  background-color: #5d64ed;
+  padding: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

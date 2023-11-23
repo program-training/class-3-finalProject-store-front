@@ -19,8 +19,8 @@ const settings = ["logOut"];
 
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
+    backgroundColor: "#5d64ed",
+    color: "#5d64ed",
     "&::after": {
       position: "absolute",
       top: 0,
@@ -52,7 +52,6 @@ export function HeaderAvailable() {
 
   const navigate = useNavigate();
 
-
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -65,7 +64,7 @@ export function HeaderAvailable() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <IconButton>
+          <IconButton>
             <HomeIcon
               onClick={() => {
                 navigate(`/`);

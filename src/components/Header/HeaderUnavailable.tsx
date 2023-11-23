@@ -19,8 +19,8 @@ const settings = ["signUp", "signIn"];
 
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
+    backgroundColor: "#5d64ed",
+    color: "#5d64ed",
     "&::after": {
       position: "absolute",
       top: 0,
@@ -104,9 +104,9 @@ export function HeaderUnavailable() {
             }}
           ></Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0 , }}>
             <Tooltip title="Open settings">
-              <StyledBadge>
+              <StyledBadge >
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>

@@ -34,7 +34,7 @@ export default function SignUp() {
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL_DEPLOYMENT}/api/users/register`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data.token));
         localStorage.setItem("email", JSON.stringify(data.email));

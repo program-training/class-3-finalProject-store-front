@@ -26,7 +26,7 @@ export default function SignIn() {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL_DEPLOYMENT}/api/users/login`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/login`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("userId", JSON.stringify(api.data.userId));
         localStorage.setItem("email", JSON.stringify(data.email));
@@ -49,7 +49,8 @@ export default function SignIn() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -76,8 +77,7 @@ export default function SignIn() {
                 required: "password is required",
                 pattern: {
                   value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&()*-+=]).+$/,
-                  message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
+                  message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
                 },
                 minLength: {
                   value: 8,

@@ -1,14 +1,7 @@
-const footerStyle = {
-  backgroundColor: "#646cff",
-  padding: "20px",
-  textAlign: "center",
-  position: "absolute",
-  bottom: "0",
-  width: "100%",
-};
-export const Footer = () => {
+import "./footer.css";
+const Footer = () => {
   return (
-    <footer style={footerStyle}>
+    <footer>
       <div>
         <p>All rights reserved</p>
       </div>

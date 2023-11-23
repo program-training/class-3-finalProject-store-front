@@ -26,7 +26,7 @@ export default function SignIn() {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL_DEPLOYMENT}/api/users/login`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/login`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("userId", JSON.stringify(api.data.userId));
         localStorage.setItem("email", JSON.stringify(data.email));

@@ -17,7 +17,7 @@ export default function Home() {
 
   const getProducts = async () => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL_DEPLOYMENT}/api/products/`);
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/`);
       setProducts(productsResult.data);
     } catch (error) {
       console.log(error);

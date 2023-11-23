@@ -17,7 +17,9 @@ export default function Home() {
 
   const getProducts = async () => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/`);
+      const productsResult = await axios.get(
+        `${env.VITE_BASE_URL}/api/products/`
+      );
       setProducts(productsResult.data);
       console.log(products);
     } catch (error) {
@@ -29,8 +31,8 @@ export default function Home() {
     getProducts();
   }, []);
 
-  const handelNavAndRedux = () => {
-    products && navigate("/product");
+  const handelNavAndRedux = (productId: string) => {
+    productId && navigate(`/product/${productId}`);
   };
 
   return (
@@ -38,8 +40,15 @@ export default function Home() {
       {products !== null ? (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
           {products?.map((product) => (
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia sx={{ height: 140 }} image={product.image.large} title={product.image.alt} />
+            <Card
+              sx={{ maxWidth: 345 }}
+              onClick={() => handelNavAndRedux(products && products[0]?._id)}
+            >
+              <CardMedia
+                sx={{ height: 140 }}
+                image={product.image.large}
+                title={product.image.alt}
+              />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {product.name}

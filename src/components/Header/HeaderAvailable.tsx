@@ -52,13 +52,6 @@ export function HeaderAvailable() {
 
   const navigate = useNavigate();
 
-  const handleHButtonHomeClick = () => {
-    navigate("/");
-  };
-
-  const handleHButtonCartClick = () => {
-    navigate("/");
-  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -72,13 +65,21 @@ export function HeaderAvailable() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <IconButton onClick={handleHButtonHomeClick}>
-            <HomeIcon />
+        <IconButton>
+            <HomeIcon
+              onClick={() => {
+                navigate(`/`);
+              }}
+            />
           </IconButton>
 
-          <IconButton onClick={handleHButtonCartClick}>
+          <IconButton>
             <Badge badgeContent={7} color="error">
-              <ShoppingCartIcon />
+              <ShoppingCartIcon
+                onClick={() => {
+                  navigate(`/cart`);
+                }}
+              />
             </Badge>
           </IconButton>
 

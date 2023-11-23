@@ -45,20 +45,18 @@ const StyledBadge = styled(Badge)(() => ({
   },
 }));
 
+// const profileStyle = {
+//   display: "flex",
+//   justifyContent: "end",
+//     alignItems: "end",
+// };
+
 export function HeaderUnavailable() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const navigate = useNavigate();
-
-  const handleHButtonHomeClick = () => {
-    navigate("/");
-  };
-
-  const handleHButtonCartClick = () => {
-    navigate("/");
-  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -72,13 +70,21 @@ export function HeaderUnavailable() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <IconButton onClick={handleHButtonHomeClick}>
-            <HomeIcon />
+          <IconButton>
+            <HomeIcon
+              onClick={() => {
+                navigate(`/`);
+              }}
+            />
           </IconButton>
 
-          <IconButton onClick={handleHButtonCartClick}>
+          <IconButton>
             <Badge badgeContent={7} color="error">
-              <ShoppingCartIcon />
+              <ShoppingCartIcon
+                onClick={() => {
+                  navigate(`/cart`);
+                }}
+              />
             </Badge>
           </IconButton>
 
@@ -89,7 +95,7 @@ export function HeaderUnavailable() {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex", width: "1170px" },
+              display: { xs: "none", md: "flex", width: "100vh" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",

@@ -6,6 +6,6 @@ import SendOrders from './components/testingOrder/TestingOrder.tsx'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
-    <SendOrders/>
+    {/* <SendOrders/> */}
   </React.StrictMode>,
 )

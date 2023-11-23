@@ -1,8 +1,10 @@
+import React from "react";
+
 const footerStyle = {
   backgroundColor: "#646cff",
-  padding: "20px",
+  padding: "10px",
   textAlign: "center",
-  position: "absolute",
+  position: "sticky",
   bottom: "0",
   width: "100%",
 };

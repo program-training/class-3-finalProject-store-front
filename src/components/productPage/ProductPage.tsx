@@ -20,8 +20,6 @@ export default function ProductPage() {
     }
     getData();
   }, []);
-  {
-    product && <BannerProducts categoryName={product.category} />;
-  }
-  return <></>;
+
+  return <>{product && <BannerProducts categoryName={product.category} />}</>;
 }

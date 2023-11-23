@@ -5,14 +5,13 @@ import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 const componentsArr: React.ReactNode[] = [];
 for (let i = 0; i <= 5; i++) {
   componentsArr.push(<ProductsSkelton key={i} />);
 }
 
 const BannerProducts = (prop: { categoryName: string }) => {
+  const navigate = useNavigate();
   const [bannerProducts, setBannerProducts] = useState<IProduct[] | null>(null);
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const BannerProducts = (prop: { categoryName: string }) => {
         </Box>
       ) : (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-          {bannerProducts.map(product => (
+          {bannerProducts.map((product) => (
             <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/product/${product._id}`)}>
               <CardMedia sx={{ height: 140 }} image={product.image.large} title="green iguana" />
               <CardContent>

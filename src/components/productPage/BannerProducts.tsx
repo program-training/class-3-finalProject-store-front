@@ -5,20 +5,19 @@ import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 const componentsArr: React.ReactNode[] = [];
 for (let i = 0; i <= 5; i++) {
   componentsArr.push(<ProductsSkelton key={i} />);
 }
 
 const BannerProducts = (prop: { categoryName: string }) => {
+  const navigate = useNavigate();
   const [bannerProducts, setBannerProducts] = useState<IProduct[] | null>(null);
 
   useEffect(() => {
     const getBannerProducts = async () => {
       try {
-        const fetchBannerProducts = await axios(`//`, { params: prop.categoryName });
+        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/api/products/banners`, { params: {categoryName: prop.categoryName, quantity: 5} });
         const bannerProductsList: IProduct[] = fetchBannerProducts.data;
         setBannerProducts(bannerProductsList);
       } catch (error) {

@@ -42,9 +42,9 @@ export default function Home() {
   return (
     <>
       {products !== null ? (
-        <Box width="100%" my={4} display="flex" alignItems="center" flexWrap="wrap" gap={4} >
+        <Box width="100%" my={4} display="flex" alignItems="center" flexWrap="wrap" gap={4}>
           <div style={{ padding: "6rem 8rem 10rem 8rem" }}>
-            <Grid container spacing={3} >
+            <Grid container spacing={3}>
               {Array.isArray(products) &&
                 products.map((product, index) => (
                   <Grid item sm={8} md={4} lg={2} p={3} key={index} border="2px solid #5896" margin="13px" borderRadius="33px">
@@ -72,56 +72,53 @@ export default function Home() {
                         </Stack>
                       </CardContent>
                       <CardActions>
-                      <Tooltip title="Add To Cart">
-                        <IconButton
-                          onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bottom: "15px",
-                            right: "15px",
-                            position: "absolute",
-                            background: "#3f51b5",
-                            color: "white",
-                            "&:hover": {
-                              background: "green",
-                            },
-                          }}
-                        >
-                          <AddShoppingCartIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="View Chart">
-                        <IconButton
-                          onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bottom: "15px",
-                            right: "60px",
-                            position: "absolute",
-                            background: "#3f51b5",
-                            color: "white",
-                            "&:hover": {
-                              background: "green",
-                            },
-                          }}
-                        >
-                          <BarChartIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </CardActions>
-
+                        <Tooltip title="Add To Cart">
+                          <IconButton
+                            onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
+                            size="small"
+                            color="primary"
+                            sx={{
+                              bottom: "15px",
+                              right: "15px",
+                              position: "absolute",
+                              background: "#3f51b5",
+                              color: "white",
+                              "&:hover": {
+                                background: "green",
+                              },
+                            }}
+                          >
+                            <AddShoppingCartIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="View Chart">
+                          <IconButton
+                            onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
+                            size="small"
+                            color="primary"
+                            sx={{
+                              bottom: "15px",
+                              right: "60px",
+                              position: "absolute",
+                              background: "#3f51b5",
+                              color: "white",
+                              "&:hover": {
+                                background: "green",
+                              },
+                            }}
+                          >
+                            <BarChartIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </CardActions>
                     </CardActionArea>
-
                   </Grid>
                 ))}
             </Grid>
           </div>
         </Box>
       ) : (
-        <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-        </Box>
+        <Box width="100%" my={4} display="flex" alignItems="center" gap={4}></Box>
       )}
     </>
   );

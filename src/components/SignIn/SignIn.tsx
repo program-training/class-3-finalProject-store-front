@@ -13,10 +13,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
+import { useState } from "react";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [success, setSuccess] = useState<boolean>(false);
+  const [customError, setCustomError] = useState<string | undefined>(undefined);
+  const [disable, setDisable] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -25,23 +29,32 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const onSubmit = async (data: FieldValues) => {
+    data = { email: data.email, password: data.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/login`, data);
-      if (api.statusText === "OK") {
-        localStorage.setItem("userId", JSON.stringify(api.data.userId));
-        localStorage.setItem("email", JSON.stringify(data.email));
-        alert("User is logged in");
-        navigate("/products");
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/logIn`, data);
+      if (api.statusText === "Created") {
+        localStorage.setItem("token", JSON.stringify(api.data));
+        setSuccess(true);
+        navigate("/");
       } else {
-        throw new Error("User does not exist");
+        throw api;
       }
     } catch (error) {
-      alert(error);
+      if (axios.isAxiosError(error)) {
+        setCustomError(error.response?.data);
+        setDisable(true);
+      }
     }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        sx={{
+          display: disable ? "none" : "auto",
+        }}
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -94,6 +107,7 @@ export default function SignIn() {
               label="Password"
             />
             {errors.password && <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />}
+            {success && <span>You have successfully registered</span>}
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
@@ -112,6 +126,7 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
+      <Grid>{customError}</Grid>
     </ThemeProvider>
   );
 }

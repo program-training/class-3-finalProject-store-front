@@ -8,14 +8,9 @@ const HeaderRouter = () => {
 
   if (!userToken) {
     return <HeaderUnavailable/>
-    // setAvailable(false);
   } else {
     return <HeaderAvailable/>
-    // setAvailable(true);
   }
-
-//   return <>{(available && <HeaderAvailable />) || <HeaderUnavailable />}</>;
-// return (<>{available?<HeaderAvailable />:<HeaderUnavailable />}</>)
 };
 
 export default HeaderRouter;

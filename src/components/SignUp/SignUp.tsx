@@ -35,18 +35,18 @@ export default function SignUp() {
     data = { email: data.email, password: data.password };
     try {
       const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
-      if (api.statusText === "OK") {
-        localStorage.setItem("token", JSON.stringify(api.data.token));
-        localStorage.setItem("email", JSON.stringify(data.email));
+      if (api.statusText === "Created") {
+        localStorage.setItem("token", JSON.stringify(api.data));
         setSuccess(true);
         navigate(location.state?.from || "/");
       } else {
-        throw new Error("Existing user, please sign in");
+        throw api;
       }
     } catch (error) {
-      setCustomError((error as Error).message);
-      console.log(customError);
-      setDisable(true);
+      if (axios.isAxiosError(error)) {
+        setCustomError(error.response?.data);
+        setDisable(true);
+      }
     }
   };
   return (

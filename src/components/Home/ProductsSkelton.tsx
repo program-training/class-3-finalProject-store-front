@@ -1,9 +1,9 @@
-import {  Card, CardContent, Skeleton } from "@mui/material";
+import {  Card, CardContent, Skeleton, Box } from "@mui/material";
 
 export default function ProductsSkelton() {
  
  return (
-  // <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
+  <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
    
     <Card sx={{ maxWidth: 345 }} >
      <Skeleton variant="rectangular"

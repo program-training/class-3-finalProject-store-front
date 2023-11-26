@@ -23,18 +23,16 @@ export default function Home() {
 
   const handleAddToCart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for adding to cart
   };
 
   const handleViewChart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for viewing the chart
   };
 
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
   };
-  
+
   const getProducts = async (search: string = "") => {
     try {
       const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/${search}`);
@@ -46,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     getProducts(search);
   }, [search]);
-  
+
   return (
     <>
       {products !== null ? (

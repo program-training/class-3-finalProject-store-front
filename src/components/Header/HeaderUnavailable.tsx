@@ -45,12 +45,6 @@ const StyledBadge = styled(Badge)(() => ({
   },
 }));
 
-// const profileStyle = {
-//   display: "flex",
-//   justifyContent: "end",
-//     alignItems: "end",
-// };
-
 export function HeaderUnavailable() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null

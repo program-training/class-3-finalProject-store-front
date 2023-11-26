@@ -19,9 +19,6 @@ import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import HeaderCategory from "./HeaderCategory";
-import CategoryIcon from "@mui/icons-material/Category";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const settings = ["signUp", "signIn"];
 

@@ -1,4 +1,4 @@
-import {  Card, CardContent, Grid, Skeleton } from "@mui/material";
+import {  CardContent, Grid, Skeleton } from "@mui/material";
 
 export default function ProductsSkelton() {
  

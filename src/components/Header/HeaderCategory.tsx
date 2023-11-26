@@ -10,13 +10,8 @@ import { setSearch } from "../../redux/searchSlice";
 interface HeaderCategoryProps {}
 
 const HeaderCategory: React.FC<HeaderCategoryProps> = () => {
-  const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const dispatch = useAppDispatch();
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const openCategoryMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);

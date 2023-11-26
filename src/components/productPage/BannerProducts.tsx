@@ -17,7 +17,7 @@ const BannerProducts = (prop: { categoryName: string }) => {
   useEffect(() => {
     const getBannerProducts = async () => {
       try {
-        const fetchBannerProducts = await axios(`//`, { params: prop.categoryName });
+        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/api/products/banners`, { params: {categoryName: prop.categoryName, quantity: 5} });
         const bannerProductsList: IProduct[] = fetchBannerProducts.data;
         setBannerProducts(bannerProductsList);
       } catch (error) {

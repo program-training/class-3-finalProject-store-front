@@ -26,8 +26,8 @@ const settings = ["signUp", "signIn"];
 
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
+    backgroundColor: "#5d64ed",
+    color: "#5d64ed",
     "&::after": {
       position: "absolute",
       top: 0,
@@ -59,14 +59,6 @@ export function HeaderUnavailable() {
   const [isSignedUp, setIsSignedUp] = React.useState(false);
 
   const navigate = useNavigate();
-
-  const handleHButtonHomeClick = () => {
-    navigate("/");
-  };
-
-  const handleHButtonCartClick = () => {
-    navigate("/");
-  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);

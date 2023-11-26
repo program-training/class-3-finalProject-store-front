@@ -16,6 +16,7 @@ export const userCartSlice = createSlice({
     upDateUserCart: (state, action: PayloadAction<UserCart[]>) => {
       state.userCartArr = action.payload;
     },
+    
   },
 });
 export const { upDateUserCart } = userCartSlice.actions;

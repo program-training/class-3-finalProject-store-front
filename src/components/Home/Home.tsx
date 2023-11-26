@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../types";
@@ -7,11 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ProductsSkelton from "./ProductsSkelton";
+import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
+  const search = useAppSelector((state: RootState) => state.search.value);
 
   const componentsArr: React.ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
@@ -31,20 +34,19 @@ export default function Home() {
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
   };
-
-  const getProducts = async () => {
+  
+  const getProducts = async (search: string = "") => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/`);
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/${search}`);
       setProducts(productsResult.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching products:", error);
     }
   };
-
   useEffect(() => {
-    getProducts();
-  }, []);
-
+    getProducts(search);
+  }, [search]);
+  
   return (
     <>
       {products !== null ? (
@@ -73,7 +75,9 @@ export default function Home() {
                                 before discount: ${product.salePrice}
                               </Typography>
                             )}
-                            {product.discountPercentage && <Typography variant="h6">after discount: ${(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
+                            {product.discountPercentage && (
+                              <Typography variant="h6">after discount: ${(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>
+                            )}
                           </Stack>
                         </Stack>
                       </CardContent>

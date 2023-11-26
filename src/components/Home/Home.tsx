@@ -34,7 +34,7 @@ export default function Home() {
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
   };
-  
+
   const getProducts = async (search: string = "") => {
     try {
       const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/${search}`);
@@ -46,7 +46,7 @@ export default function Home() {
   useEffect(() => {
     getProducts(search);
   }, [search]);
-  
+
   return (
     <>
       {products !== null ? (

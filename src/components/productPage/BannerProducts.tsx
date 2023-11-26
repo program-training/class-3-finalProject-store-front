@@ -35,7 +35,7 @@ const BannerProducts = (prop: { categoryName: string }) => {
         </Box>
       ) : (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-          {bannerProducts.map(product => (
+          {bannerProducts.map((product) => (
             <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/product/${product._id}`)}>
               <CardMedia sx={{ height: 140 }} image={product.image.large} title="green iguana" />
               <CardContent>

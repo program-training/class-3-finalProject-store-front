@@ -21,10 +21,15 @@ export default function ProductPage() {
     }
     getData();
   }, []);
+<<<<<<< HEAD
   return (
     <>
       {product && <ProductCard product={product} />}
       {/* {product && <BannerProducts categoryName={product.category} />} */}
     </>
   );
+=======
+
+  return <>{product && <BannerProducts categoryName={product.category} />}</>;
+>>>>>>> develop
 }

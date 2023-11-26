@@ -19,8 +19,8 @@ const settings = ["signUp", "signIn"];
 
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
+    backgroundColor: "#5d64ed",
+    color: "#5d64ed",
     "&::after": {
       position: "absolute",
       top: 0,
@@ -52,14 +52,6 @@ export function HeaderUnavailable() {
 
   const navigate = useNavigate();
 
-  const handleHButtonHomeClick = () => {
-    navigate("/");
-  };
-
-  const handleHButtonCartClick = () => {
-    navigate("/");
-  };
-
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -72,13 +64,21 @@ export function HeaderUnavailable() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <IconButton onClick={handleHButtonHomeClick}>
-            <HomeIcon />
+          <IconButton>
+            <HomeIcon
+              onClick={() => {
+                navigate(`/`);
+              }}
+            />
           </IconButton>
 
-          <IconButton onClick={handleHButtonCartClick}>
+          <IconButton>
             <Badge badgeContent={7} color="error">
-              <ShoppingCartIcon />
+              <ShoppingCartIcon
+                onClick={() => {
+                  navigate(`/cart`);
+                }}
+              />
             </Badge>
           </IconButton>
 
@@ -89,7 +89,7 @@ export function HeaderUnavailable() {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex", width: "1170px" },
+              display: { xs: "none", md: "flex", width: "100vh" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -98,9 +98,9 @@ export function HeaderUnavailable() {
             }}
           ></Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0 , }}>
             <Tooltip title="Open settings">
-              <StyledBadge>
+              <StyledBadge >
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>

@@ -19,7 +19,7 @@ const settings = ["logOut"];
 
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#5d64ed",
+    backgroundColor: "green",
     color: "#5d64ed",
     "&::after": {
       position: "absolute",

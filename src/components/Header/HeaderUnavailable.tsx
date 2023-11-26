@@ -14,11 +14,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/system";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 
@@ -60,6 +57,12 @@ export function HeaderUnavailable() {
 
   const navigate = useNavigate();
 
+  const handleHButtonHomeClick = () => {
+    navigate("/");
+  };
+  const handleHButtonCartClick = () => {
+    navigate("/");
+  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -68,20 +71,22 @@ export function HeaderUnavailable() {
     setAnchorElUser(null);
   };
 
-  // const handleSignIn = () => {
-  //   setIsSignedIn(true);
-  //   handleCloseDialog();
-  // };
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+    setIsSignedUp(false);
+    handleCloseDialog();
+  };
 
-  // const handleSignUp = () => {
-  //   setIsSignedUp(true);
-  //   handleCloseUserMenu();
-  // };
+  const handleSignUp = () => {
+    setIsSignedUp(true);
+    setIsSignedIn(false);
+    handleCloseUserMenu();
+  };
   const handleClickPop = (setting: string) => {
-    if (setting === " signUp") {
-      setIsSignedUp(true);
+    if (setting === "signUp") {
+      handleSignUp();
     } else {
-      setIsSignedIn(true);
+      handleSignIn();
     }
     handleCloseUserMenu();
   };
@@ -166,8 +171,8 @@ export function HeaderUnavailable() {
                   <MenuItem
                     key={setting}
                     onClick={() => {
-                      handleClickOpen();
                       handleClickPop(setting);
+                      handleClickOpen();
                     }}
                   >
                     <Typography textAlign="center">{setting}</Typography>

@@ -77,12 +77,10 @@ const HeaderCategory: React.FC = () => {
             </ListItemButton>
           ))}
         </List>
-        <List>
-          <Box sx={{ width: 150 }}>
-            <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
-          </Box>
-          <ListItemButton onClick={handleApplyFilter}>
-            <ListItemText primary="Apply Filter" />
+        <List sx={{ paddingLeft: 2, paddingRight: 2 }}>
+          <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+          <ListItemButton sx={{ pl: 4 }} onClick={handleApplyFilter}>
+            <ListItemText primary="Apply" />
           </ListItemButton>
         </List>
       </Menu>

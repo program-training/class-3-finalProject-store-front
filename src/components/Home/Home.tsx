@@ -21,11 +21,9 @@ console.log(search);
   }
   const handleAddToCart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for adding to cart
   };
   const handleViewChart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for viewing the chart
   };
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);

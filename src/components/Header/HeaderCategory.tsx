@@ -7,7 +7,6 @@ import { Tooltip, Box, IconButton, Menu } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
-import { type } from "os";
 
 type Category = {
   id: string;

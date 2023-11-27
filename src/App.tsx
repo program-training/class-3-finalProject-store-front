@@ -10,7 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LayersHeader />}>
             <Route path="/" element={<Home />} />
-            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

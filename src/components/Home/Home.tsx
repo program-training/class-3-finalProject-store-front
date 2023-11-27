@@ -12,18 +12,18 @@ export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
-  const search = useAppSelector((state: RootState) => state.search.value);
+  const search = useAppSelector((state: RootState) => state.search.name);
+  console.log(search);
+
   const componentsArr: React.ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
     componentsArr.push(<ProductsSkelton key={i} />);
   }
   const handleAddToCart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for adding to cart
   };
   const handleViewChart = (event: React.MouseEvent) => {
     event.stopPropagation();
-    // Add your logic for viewing the chart
   };
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
@@ -126,12 +126,3 @@ export default function Home() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-

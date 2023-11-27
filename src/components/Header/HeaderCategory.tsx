@@ -7,11 +7,8 @@ import { Tooltip, Box, IconButton, Menu } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
+import { Category } from "../../types";
 
-type Category = {
-  id: string;
-  name: string;
-};
 const HeaderCategory: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);

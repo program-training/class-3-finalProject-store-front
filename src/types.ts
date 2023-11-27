@@ -19,3 +19,8 @@ export interface UserCart {
   product: productType;
   quantity: number;
 }
+
+export type Category = {
+  id: string;
+  name: string;
+};

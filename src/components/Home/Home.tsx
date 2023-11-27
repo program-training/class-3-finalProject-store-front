@@ -14,7 +14,7 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
-console.log(search);
+  console.log(search);
 
   const componentsArr: React.ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
@@ -127,12 +127,3 @@ console.log(search);
     </>
   );
 }
-
-
-
-
-
-
-
-
-

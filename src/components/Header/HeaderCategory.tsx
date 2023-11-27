@@ -3,7 +3,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import CategoryIcon from "@mui/icons-material/Category";
-import { Tooltip, Box, IconButton, Menu } from "@mui/material";
+import { Tooltip, Box, IconButton, Menu, Slider } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
@@ -13,6 +13,21 @@ const HeaderCategory: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
   const dispatch = useAppDispatch();
+  const [value, setValue] = React.useState<number[]>([30, 150]);
+
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
+  function valuetext(value: number) {
+    return `${value}$`;
+  }
+  const handleApplyFilter = () => {
+    applyFilter(value);
+    handleCloseUserMenu(); // Close the menu
+  };
+  const applyFilter = (priceRange: number[]) => {
+    dispatch(setSearch(`filter by price range: ${priceRange[0]} - ${priceRange[1]}`));
+  };
 
   const openCategoryMenu = async (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -61,6 +76,14 @@ const HeaderCategory: React.FC = () => {
               <ListItemText primary={category.name} />
             </ListItemButton>
           ))}
+        </List>
+        <List>
+          <Box sx={{ width: 150 }}>
+            <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+          </Box>
+          <ListItemButton onClick={handleApplyFilter}>
+            <ListItemText primary="Apply Filter" />
+          </ListItemButton>
         </List>
       </Menu>
     </Box>

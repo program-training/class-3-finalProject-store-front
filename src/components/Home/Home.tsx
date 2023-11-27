@@ -8,6 +8,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
+
 export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);

@@ -14,7 +14,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
-  const search = useAppSelector((state: RootState) => state.search.value);
+  const search = useAppSelector((state: RootState) => state.search.name);
 console.log(search);
 
   const componentsArr: React.ReactNode[] = [];

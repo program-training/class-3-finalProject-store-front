@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,8 +8,39 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
+// interface Product {
+//   name: string;
+//   salePrice: number;
+//   quantity: number;
+//   description: string;
+//   category: string;
+//   discountPercentage: number;
+//   image: {
+//     url: string;
+//     alt: string;
+//   };
+// }
+
 const ProductCart = () => {
   const [products, setProducts] = useState([
+    {
+      category: "gadgets",
+      description: "Description for Nintendo Switch",
+      discountPercentage: 12,
+      image: {
+        alt: "Nintendo Switch Image",
+        large:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
+        medium:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
+        small:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
+      },
+      name: "Nintendo Switch nwe",
+      quantity: 60,
+      salePrice: 91,
+      _id: "655f1cbddab13343a8db795c",
+    },
     {
       category: "gadgets",
       description: "Description for Nintendo Switch",
@@ -55,12 +86,25 @@ const ProductCart = () => {
       setQuantity(0);
     }
   };
+  //   const deleteProduct = () => {
+  //     products.indexOf();
+  //   };
+
+  const removeFromCart = (indexProduct: number) => {
+    const updatedCart = products.filter(
+      (product, index) => indexProduct !== index
+    );
+    setProducts(updatedCart);
+  };
+  //   const removeFromCart = (indexProduct: number) => {
+  //     const index = products.findIndex(indexProduct)
+  //   };
 
   return (
     <div className="product-cart">
       <h1></h1>
       <div className="products-list">
-        {products.map((product) => (
+        {products.map((product, index) => (
           <Card sx={{ maxWidth: 232 }}>
             <CardActionArea>
               <CardMedia
@@ -90,7 +134,9 @@ const ProductCart = () => {
                     <RemoveCircleOutlineIcon onClick={reduceQuantity} />
                   </IconButton>
                   <IconButton>
-                    <DeleteForeverIcon />
+                    <DeleteForeverIcon onClick={() => removeFromCart(index)} />
+                    {/* לבדוק בגפט איך אני מוחק דיב מסויים כשהכפתור נלחץ על האלמנט */}
+                    {/* הזה במפ */}
                   </IconButton>
                 </Typography>
               </CardContent>

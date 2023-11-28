@@ -2,7 +2,7 @@ import axios, { Method } from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
 
-const userCartRedux = (method: Method) => {
+const UserCartRedux = (method: Method) => {
   const dispatch = useAppDispatch();
 
   const getToken = localStorage.getItem("token");
@@ -32,4 +32,4 @@ const userCartRedux = (method: Method) => {
   return fetchCart;
 };
 
-export default userCartRedux;
+export default UserCartRedux;

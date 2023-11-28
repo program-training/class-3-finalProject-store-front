@@ -22,3 +22,9 @@ export type Category = {
   id: string;
   name: string;
 };
+
+export interface SignUp_signIn {
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+}

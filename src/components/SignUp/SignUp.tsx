@@ -24,7 +24,6 @@ export default function SignUp(prop: SignUp_signIn) {
     formState: { errors },
   } = useForm();
   const password: UseFormWatch<Text> = watch("password");
-
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
@@ -164,3 +163,4 @@ export default function SignUp(prop: SignUp_signIn) {
     </>
   );
 }
+

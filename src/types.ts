@@ -24,3 +24,8 @@ export type Category = {
   id: string;
   name: string;
 };
+
+export interface PaymentFormProps {
+  subtotal: number,
+  shippingFee: number
+}

@@ -13,21 +13,21 @@ const HeaderCategory: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
   const dispatch = useAppDispatch();
-  // const [value, setValue] = React.useState<number[]>([30, 150]);
+  const [value, setValue] = React.useState<number[]>([30, 150]);
 
-  // const handleChange = (event: Event, newValue: number | number[]) => {
-  //   setValue(newValue as number[]);
-  // };
-  // function valuetext(value: number) {
-  //   return `${value}$`;
-  // }
-  // const handleApplyFilter = () => {
-  //   applyFilter(value);
-  //   handleCloseUserMenu();
-  // };
-  // const applyFilter = (priceRange: number[]) => {
-  //   dispatch(setSearch(`filter by price range: ${priceRange[0]} - ${priceRange[1]}`));
-  // };
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
+  function valuetext(value: number) {
+    return `${value}$`;
+  }
+  const handleApplyFilter = () => {
+    applyFilter(value);
+    handleCloseUserMenu();
+  };
+  const applyFilter = (priceRange: number[]) => {
+    dispatch(setSearch(`filter by price range: ${priceRange[0]} - ${priceRange[1]}`));
+  };
 
   const openCategoryMenu = async (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -77,12 +77,12 @@ const HeaderCategory: React.FC = () => {
             </ListItemButton>
           ))}
         </List>
-        {/* <List sx={{ paddingLeft: 2, paddingRight: 2 }}>
+        <List sx={{ paddingLeft: 2, paddingRight: 2 }}>
           <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
           <ListItemButton sx={{ pl: 4 }} onClick={handleApplyFilter}>
             <ListItemText primary="Apply" />
           </ListItemButton>
-        </List> */}
+        </List>
       </Menu>
     </Box>
   );

@@ -15,7 +15,7 @@ const HeaderCategory: React.FC = () => {
   const dispatch = useAppDispatch();
   const [value, setValue] = React.useState<number[]>([30, 150]);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
   function valuetext(value: number) {

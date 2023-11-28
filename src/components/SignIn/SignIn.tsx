@@ -28,8 +28,6 @@ export default function SignIn(prop: SignUp_signIn) {
   const onSubmit = async (data: FieldValues) => {
     try {
       const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/logIn`, data);
-      console.log(api);
-      console.log(api.data);
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data));
         setSuccess(true);

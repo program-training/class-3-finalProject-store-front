@@ -8,13 +8,10 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { SignUp_signIn } from "../../types";
-
-const defaultTheme = createTheme();
 
 export default function SignUp(prop: SignUp_signIn) {
   const [success, setSuccess] = useState<boolean>(false);

@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,6 +18,7 @@ import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import HeaderCategory from "./HeaderCategory";
+import { useState } from "react";
 
 const settings = ["signUp", "signIn"];
 
@@ -51,11 +51,11 @@ const StyledBadge = styled(Badge)(() => ({
 }));
 
 export function HeaderUnavailable() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const [openCategoryMenu, setOpenCategoryMenu] = React.useState(false);
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [isSignedIn, setIsSignedIn] = React.useState(false);
-  const [isSignedUp, setIsSignedUp] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const navigate = useNavigate();
 
@@ -75,17 +75,22 @@ export function HeaderUnavailable() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   const handleSignIn = () => {
     setIsSignedIn(true);
     setIsSignedUp(false);
-    handleCloseDialog();
   };
 
   const handleSignUp = () => {
     setIsSignedUp(true);
     setIsSignedIn(false);
-    handleCloseUserMenu();
   };
   const handleClickPop = (setting: string) => {
     if (setting === "signUp") {
@@ -96,25 +101,17 @@ export function HeaderUnavailable() {
     handleCloseUserMenu();
   };
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         {isSignedIn && (
           <DialogContent>
-            <SignIn />
+            <SignIn setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
           </DialogContent>
         )}
         {isSignedUp && (
           <DialogContent>
-            <SignUp />
+            <SignUp setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
           </DialogContent>
         )}
       </Dialog>
@@ -133,9 +130,9 @@ export function HeaderUnavailable() {
             </IconButton>
 
             <Box sx={{ flexGrow: 0 }}>
-                  <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
-                    <HeaderCategory />
-                  </IconButton>
+              <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
+                <HeaderCategory />
+              </IconButton>
             </Box>
 
             <Typography

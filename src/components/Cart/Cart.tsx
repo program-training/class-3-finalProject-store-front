@@ -9,15 +9,16 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 // interface Product {
+//   _id: string;
 //   name: string;
 //   salePrice: number;
-//   quantity: number;
 //   description: string;
 //   category: string;
 //   discountPercentage: number;
 //   image: {
 //     url: string;
 //     alt: string;
+//     small: string;
 //   };
 // }
 
@@ -60,7 +61,10 @@ const ProductCart = () => {
       _id: "655f1cbddab13343a8db795c",
     },
   ]);
-  const [quantity, setQuantity] = useState(1);
+  interface CartQuantity {
+    [key: string]: number;
+  }
+  const [quantity, setQuantity] = useState<CartQuantity>({});
 
   useEffect(() => {
     fetch("")
@@ -72,23 +76,28 @@ const ProductCart = () => {
       })
       .then((data) => {
         setProducts(data);
-      })
-      .catch((error) => {
-        console.error("There was a problem fetching the data:", error);
       });
+    products.map((product) => {
+      setQuantity({ ...quantity, [product._id]: 1 });
+    });
+    // const initialQuantities: { [key: string]: number } = {};
+    // products.forEach((product) => {
+    //   initialQuantities[product._id] = 0;
+    // });
+    //   .catch((error) => {
+    //     console.error("There was a problem fetching the data:", error);
+    //   });
   }, []);
-  const addQuantity = () => {
-    setQuantity((quantity) => (quantity += 1));
+  const addQuantity = (productId: string) => {
+    const add = (quantity[productId] += 1);
+    setQuantity({ ...quantity, add });
   };
-  const reduceQuantity = () => {
-    setQuantity((quantity) => (quantity -= 1));
-    if (quantity < 1) {
-      setQuantity(0);
+  const reduceQuantity = (productId: string) => {
+    if (quantity[productId] > 0) {
+      const reduce = (quantity[productId] -= 1);
+      setQuantity({ ...quantity, reduce });
     }
   };
-  //   const deleteProduct = () => {
-  //     products.indexOf();
-  //   };
 
   const removeFromCart = (indexProduct: number) => {
     const updatedCart = products.filter(
@@ -102,10 +111,11 @@ const ProductCart = () => {
 
   return (
     <div className="product-cart">
-      <h1></h1>
+      <h1>Shopping Cart</h1>
       <div className="products-list">
         {products.map((product, index) => (
-          <Card sx={{ maxWidth: 232 }}>
+          // setQuantity({...quantity ,product._id: 1})
+          <Card key={product._id} sx={{ maxWidth: 232 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -127,17 +137,19 @@ const ProductCart = () => {
                   {/* להוסיף כפתורים ובתוכם אייקונים פלוס ומינוס 
                     שיפעילו את הפונקצויות פלוס ומינוס  בהתאמה */}
                   <IconButton>
-                    <AddCircleOutlineIcon onClick={addQuantity} />
+                    <AddCircleOutlineIcon
+                      onClick={() => addQuantity(product._id)}
+                    />
                   </IconButton>
-                  {quantity}
-                  <IconButton>
-                    <RemoveCircleOutlineIcon onClick={reduceQuantity} />
+                  {quantity[product._id]}
+                  <IconButton onClick={() => reduceQuantity(product._id)}>
+                    <RemoveCircleOutlineIcon />
                   </IconButton>
                   <IconButton>
                     <DeleteForeverIcon onClick={() => removeFromCart(index)} />
-                    {/* לבדוק בגפט איך אני מוחק דיב מסויים כשהכפתור נלחץ על האלמנט */}
-                    {/* הזה במפ */}
                   </IconButton>
+                  {/* לבדוק בגפט איך אני מוחק דיב מסויים כשהכפתור נלחץ על האלמנט */}
+                  {/* הזה במפ */}
                 </Typography>
               </CardContent>
             </CardActionArea>

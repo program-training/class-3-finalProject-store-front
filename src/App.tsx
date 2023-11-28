@@ -11,9 +11,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/cart" element={<ProductCart />} />
           <Route path="/" element={<LayersHeader />}>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<ProductCart />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/product/:id" element={<ProductPage />} />

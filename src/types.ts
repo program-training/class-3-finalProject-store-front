@@ -14,10 +14,8 @@ export interface IProduct {
   };
 }
 
-type productType = Partial<IProduct>;
 export interface UserCart {
-  product: productType;
-  quantity: number;
+  productsCart: IProduct[];
 }
 
 export type Category = {

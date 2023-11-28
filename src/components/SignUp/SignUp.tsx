@@ -30,7 +30,6 @@ export default function SignUp() {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
-
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
@@ -159,3 +158,7 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+function getCart(): any {
+  throw new Error("Function not implemented.");
+}
+

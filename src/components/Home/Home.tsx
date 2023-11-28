@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../types";
@@ -14,16 +14,15 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
-  console.log(search);
 
-  const componentsArr: React.ReactNode[] = [];
+  const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
     componentsArr.push(<ProductsSkelton key={i} />);
   }
-  const handleAddToCart = (event: React.MouseEvent) => {
+  const handleAddToCart = (event: MouseEvent) => {
     event.stopPropagation();
   };
-  const handleViewChart = (event: React.MouseEvent) => {
+  const handleViewChart = (event: MouseEvent) => {
     event.stopPropagation();
   };
   const handelNavAndRedux = (productId: string) => {
@@ -63,18 +62,18 @@ export default function Home() {
                   <Stack>
                     <Stack direction="row" alignItems="center">
                       {product.discountPercentage && (
-                        <Typography color="textSecondary" ml={1} sx={{ textDecoration: "line-through" }}>
-                          before discount: ${product.salePrice}
+                        <Typography color="textSecondary" ml={1} sx={{ margin: "1rem", textDecoration: "line-through" }}>
+                          ₪{product.salePrice}
                         </Typography>
                       )}
-                      {product.discountPercentage && <Typography variant="h6">after discount: ${(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
+                      {product.discountPercentage && <Typography variant="h6"> ₪ {(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
                     </Stack>
                   </Stack>
                 </CardContent>
                 <CardActions>
                   <Tooltip title="Add To Cart">
                     <IconButton
-                      onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
+                      onClick={(event: MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
                       size="small"
                       color="primary"
                       sx={{
@@ -93,7 +92,7 @@ export default function Home() {
                   </Tooltip>
                   <Tooltip title="View Chart">
                     <IconButton
-                      onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
+                      onClick={(event: MouseEvent<HTMLButtonElement>) => handleViewChart(event)}
                       size="small"
                       color="primary"
                       sx={{

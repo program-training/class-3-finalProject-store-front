@@ -15,6 +15,7 @@ export interface IProduct {
 }
 
 type productType = Partial<IProduct>;
+
 export interface UserCart {
   product: productType;
   quantity: number;
@@ -28,4 +29,26 @@ export type Category = {
 export interface PaymentFormProps {
   subtotal: number,
   shippingFee: number
+}
+
+export interface OrderProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+}
+export interface ShippingDetails {
+  userId: number;
+  address: string;
+  contactNumber: string;
+  orderType: string;
+}
+export interface Order {
+  id?: string;
+  cartItems: OrderProduct[];
+  orderTime: string;
+  status: string;
+  price: number;
+  shippingDetails: ShippingDetails;
 }

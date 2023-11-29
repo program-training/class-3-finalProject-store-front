@@ -1,12 +1,12 @@
-import { useForm } from "react-hook-form";
-import { TextField, Button, Typography, Container } from "@mui/material";
+import { FieldValues, useForm } from "react-hook-form";
+import { TextField, Button, Typography, Container, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { ErrorMessage } from "@hookform/error-message";
 
 const ShippingForm = ({}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmitHandler = (data: any) => {
-    data
+  const onSubmitHandler = (data: FieldValues) => {
+    const {} = data
   };
 
   return (
@@ -51,6 +51,11 @@ const ShippingForm = ({}) => {
           variant="outlined"
         />
         {errors.zipCode && <ErrorMessage errors={errors} name="zipCode" render={({ message }) => <Typography>{message}</Typography>} />}
+        <RadioGroup defaultValue="" sx={{display: `flex`, flexDirection: `row`}} {...register("shippingMethod")}>
+          <FormControlLabel value="Pickup" control={<Radio />} label="Pickup" />
+          <FormControlLabel value="Express" control={<Radio />} label="Express" />
+          <FormControlLabel value="Shipping" control={<Radio />} label="Shipping" />
+        </RadioGroup>
         <Button type="submit" variant="contained" sx={{ margin: "15px 0" }}>
           Proceed
         </Button>

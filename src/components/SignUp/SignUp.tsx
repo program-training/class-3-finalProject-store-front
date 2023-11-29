@@ -36,8 +36,7 @@ export default function SignUp(prop: SignUp_signInProp) {
         if (getCart) {
           const productCart = JSON.parse(getCart);
           for (let i = 0; i < productCart.length; i++) {
-            const cartItem = productCart[i];
-            useUserCartRedux("post", cartItem, "additem");
+            useUserCartRedux("post", productCart[i], "additem");
           }
         }
 

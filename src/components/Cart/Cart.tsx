@@ -40,7 +40,7 @@ const ProductCart = () => {
       name: "Nintendo Switch nwe",
       quantity: 60,
       salePrice: 91,
-      _id: "655f1cbddab13343a8db795c",
+      _id: "1",
     },
     {
       category: "gadgets",
@@ -58,7 +58,25 @@ const ProductCart = () => {
       name: "Nintendo Switch nwe",
       quantity: 60,
       salePrice: 91,
-      _id: "655f1cbddab13343a8db795c",
+      _id: "2",
+    },
+    {
+      category: "gadgets",
+      description: "Description for Nintendo Switch",
+      discountPercentage: 12,
+      image: {
+        alt: "Nintendo Switch Image",
+        large:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
+        medium:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
+        small:
+          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
+      },
+      name: "Nintendo Switch nwe",
+      quantity: 60,
+      salePrice: 91,
+      _id: "3",
     },
   ]);
   interface CartQuantity {
@@ -77,16 +95,13 @@ const ProductCart = () => {
       .then((data) => {
         setProducts(data);
       });
-    products.map((product) => {
-      setQuantity({ ...quantity, [product._id]: 1 });
+      products.map((product) => {
+        console.log(product);
+  
+        setQuantity({ ...quantity ,[product._id]: 1 });
+        console.log(quantity);
     });
-    // const initialQuantities: { [key: string]: number } = {};
-    // products.forEach((product) => {
-    //   initialQuantities[product._id] = 0;
-    // });
-    //   .catch((error) => {
-    //     console.error("There was a problem fetching the data:", error);
-    //   });
+   
   }, []);
   const addQuantity = (productId: string) => {
     const add = (quantity[productId] += 1);
@@ -114,7 +129,6 @@ const ProductCart = () => {
       <h1>Shopping Cart</h1>
       <div className="products-list">
         {products.map((product, index) => (
-          // setQuantity({...quantity ,product._id: 1})
           <Card key={product._id} sx={{ maxWidth: 232 }}>
             <CardActionArea>
               <CardMedia
@@ -134,8 +148,6 @@ const ProductCart = () => {
                   {product.salePrice}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {/* להוסיף כפתורים ובתוכם אייקונים פלוס ומינוס 
-                    שיפעילו את הפונקצויות פלוס ומינוס  בהתאמה */}
                   <IconButton>
                     <AddCircleOutlineIcon
                       onClick={() => addQuantity(product._id)}
@@ -148,8 +160,6 @@ const ProductCart = () => {
                   <IconButton>
                     <DeleteForeverIcon onClick={() => removeFromCart(index)} />
                   </IconButton>
-                  {/* לבדוק בגפט איך אני מוחק דיב מסויים כשהכפתור נלחץ על האלמנט */}
-                  {/* הזה במפ */}
                 </Typography>
               </CardContent>
             </CardActionArea>

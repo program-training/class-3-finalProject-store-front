@@ -26,11 +26,6 @@ export type Category = {
   img: string;
 };
 
-export interface PaymentFormProps {
-  subtotal: number,
-  shippingFee: number
-}
-
 export interface OrderProduct {
   id: string;
   name: string;
@@ -39,7 +34,7 @@ export interface OrderProduct {
   quantity: number;
 }
 export interface ShippingDetails {
-  userId: number;
+  userId?: number;
   address: string;
   contactNumber: string;
   orderType: string;

@@ -6,7 +6,6 @@ import axios from "axios";
 import { Category } from "../../types";
 
 const HeaderCategory: React.FC = () => {
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const dispatch = useAppDispatch();
@@ -22,7 +21,6 @@ const HeaderCategory: React.FC = () => {
 
   const handleApplyFilter = () => {
     applyFilter(value);
-    handleCloseUserMenu();
   };
 
   const applyFilter = (priceRange: number[]) => {
@@ -44,13 +42,9 @@ const HeaderCategory: React.FC = () => {
     fetchCategories();
   }, []);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   const handleSearchUpdate = (newSearch: string) => {
     dispatch(setSearch(newSearch));
-    handleCloseUserMenu();
   };
 
   return (
@@ -70,10 +64,10 @@ const HeaderCategory: React.FC = () => {
           ))}
         </Stack>
       )}
-      {/* <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+      <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
       <ListItemButton sx={{ pl: 2 }} onClick={handleApplyFilter}>
         <ListItemText primary="Apply" />
-      </ListItemButton> */}
+      </ListItemButton>
     </Box>
   );
 };

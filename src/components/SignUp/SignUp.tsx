@@ -12,6 +12,7 @@ import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { SignUp_signIn } from "../../types";
+import useUserCartRedux from "../../hooks/CartReduxHook";
 
 export default function SignUp(prop: SignUp_signIn) {
   const [success, setSuccess] = useState<boolean>(false);
@@ -30,6 +31,16 @@ export default function SignUp(prop: SignUp_signIn) {
       const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
       if (api.statusText === "Created") {
         localStorage.setItem("token", JSON.stringify(api.data));
+
+        const getCart = localStorage.getItem("cart");
+        if (getCart) {
+          const productCart = JSON.parse(getCart);
+          for (let i = 0; i < productCart.length; i++) {
+            const cartItem = productCart[i];
+            useUserCartRedux("post", cartItem, "additem");
+          }
+        }
+
         setSuccess(true);
         setDisable(true);
         setTimeout(() => {
@@ -163,4 +174,3 @@ export default function SignUp(prop: SignUp_signIn) {
     </>
   );
 }
-

@@ -1,8 +1,9 @@
 import axios, { Method } from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
+import { IProduct } from "../types";
 
-const UserCartRedux = (method: Method, search?: string) => {
+const useUserCartRedux = (method: Method, cartItem?: IProduct, search?: string) => {
   const dispatch = useAppDispatch();
   const getToken = localStorage.getItem("token");
 
@@ -15,6 +16,7 @@ const UserCartRedux = (method: Method, search?: string) => {
       const response = await axios({
         method,
         url: `${import.meta.env.VITE_BASE_URL}/api/carts${search ? `/${search}` : ""}`,
+        data: cartItem,
         headers: {
           Authorization: `${getToken}`,
         },
@@ -33,4 +35,4 @@ const UserCartRedux = (method: Method, search?: string) => {
   return fetchCart;
 };
 
-export default UserCartRedux;
+export default useUserCartRedux;

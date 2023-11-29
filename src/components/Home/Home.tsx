@@ -10,6 +10,7 @@ import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "../Header/HeaderCategory";
 import UserCartRedux from "../../hooks/CartReduxHook";
+import { log } from "console";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -44,13 +45,15 @@ export default function Home() {
   const getProducts = async (search: string = "") => {
     try {
       const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/all/${search}`);
-      setProducts(productsResult.data);
+      setProducts(productsResult.data);    
+      console.log(productsResult);
+        
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
   useEffect(() => {
-    getProducts(search);
+     getProducts(search);    
   }, [search]);
   return (
     <>

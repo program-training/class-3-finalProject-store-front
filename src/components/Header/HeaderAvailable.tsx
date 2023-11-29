@@ -15,8 +15,6 @@ import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/system";
 
-const settings = ["logOut"];
-
 const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
     backgroundColor: "green",
@@ -46,9 +44,7 @@ const StyledBadge = styled(Badge)(() => ({
 }));
 
 export function HeaderAvailable() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
 
@@ -59,6 +55,10 @@ export function HeaderAvailable() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  function handleCloseLogout() {
+    localStorage.removeItem("token");
+    handleCloseUserMenu();
+  }
 
   return (
     <AppBar position="static">
@@ -67,7 +67,7 @@ export function HeaderAvailable() {
           <IconButton>
             <HomeIcon
               onClick={() => {
-                navigate(`/`);
+                navigate(`/store`);
               }}
             />
           </IconButton>
@@ -76,7 +76,7 @@ export function HeaderAvailable() {
             <Badge badgeContent={7} color="error">
               <ShoppingCartIcon
                 onClick={() => {
-                  navigate(`/cart`);
+                  navigate(`/store/cart`);
                 }}
               />
             </Badge>
@@ -100,11 +100,7 @@ export function HeaderAvailable() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-              >
+              <StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>
@@ -125,16 +121,9 @@ export function HeaderAvailable() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => {
-                    navigate(`/${setting}`);
-                  }}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key={"logout"} onClick={handleCloseLogout}>
+                <Typography textAlign="center">logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

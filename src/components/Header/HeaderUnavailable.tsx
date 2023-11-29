@@ -58,10 +58,10 @@ export function HeaderUnavailable() {
   const navigate = useNavigate();
 
   const handleHButtonHomeClick = () => {
-    navigate("/");
+    navigate("/store");
   };
   const handleHButtonCartClick = () => {
-    navigate("/");
+    navigate("/store/cart");
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);

@@ -8,6 +8,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
+import HeaderCategory from "../Header/HeaderCategory";
+import UserCartRedux from "../../hooks/CartReduxHook";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -19,9 +21,20 @@ export default function Home() {
   for (let i = 0; i <= 6; i++) {
     componentsArr.push(<ProductsSkelton key={i} />);
   }
-  const handleAddToCart = (event: MouseEvent) => {
+
+  const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
+    const getToken = localStorage.getItem("token");
+    if (!getToken) {
+      const cartString: string | null = localStorage.getItem("cart");
+      const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      UserCartRedux("GET");
+    }
   };
+
   const handleViewChart = (event: MouseEvent) => {
     event.stopPropagation();
   };
@@ -43,6 +56,7 @@ export default function Home() {
     <>
       {products !== null ? (
         <Card sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+          <HeaderCategory />
           {Array.isArray(products) &&
             products.map((product) => (
               <CardActionArea
@@ -73,7 +87,7 @@ export default function Home() {
                 <CardActions>
                   <Tooltip title="Add To Cart">
                     <IconButton
-                      onClick={(event: MouseEvent<HTMLButtonElement>) => handleAddToCart(event)}
+                      onClick={(event: MouseEvent<HTMLButtonElement>) => handleAddToCart(event, product)}
                       size="small"
                       color="primary"
                       sx={{

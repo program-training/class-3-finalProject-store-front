@@ -17,7 +17,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-import HeaderCategory from "./HeaderCategory";
 import { useState } from "react";
 
 const settings = ["signUp", "signIn"];
@@ -52,7 +51,6 @@ const StyledBadge = styled(Badge)(() => ({
 
 export function HeaderUnavailable() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -67,9 +65,6 @@ export function HeaderUnavailable() {
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-  const handleOpenCategoryMenu = () => {
-    setOpenCategoryMenu(!openCategoryMenu);
   };
 
   const handleCloseUserMenu = () => {
@@ -128,13 +123,6 @@ export function HeaderUnavailable() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
-                <HeaderCategory />
-              </IconButton>
-            </Box>
-
             <Typography
               variant="h6"
               noWrap

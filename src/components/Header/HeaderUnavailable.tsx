@@ -1,13 +1,17 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
+import {
+  Avatar,
+  Container,
+  Typography,
+  IconButton,
+  Toolbar,
+  Box,
+  AppBar,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +60,7 @@ export function HeaderUnavailable() {
   const [openDialog, setOpenDialog] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [sumInCart, setSumInCart] = useState(0);
 
   const navigate = useNavigate();
 
@@ -63,7 +68,7 @@ export function HeaderUnavailable() {
     navigate("/");
   };
   const handleHButtonCartClick = () => {
-    navigate("/");
+    navigate("/cart");
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -101,55 +106,58 @@ export function HeaderUnavailable() {
     handleCloseUserMenu();
   };
 
+  // const sum = useAppSelector((state: RootState) => state.userCart.cart);
+  // console.log(sum);
+  // setSumInCart(sum.productsCart.length);
+  // console.log(sumInCart);
+
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         {isSignedIn && (
           <DialogContent>
-            <SignIn setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
+            <SignIn
+              setIsSignedIn={setIsSignedIn}
+              setIsSignedUp={setIsSignedUp}
+              setOpenDialog={setOpenDialog}
+            />
           </DialogContent>
         )}
         {isSignedUp && (
           <DialogContent>
-            <SignUp setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
+            <SignUp
+              setIsSignedIn={setIsSignedIn}
+              setIsSignedUp={setIsSignedUp}
+              setOpenDialog={setOpenDialog}
+            />
           </DialogContent>
         )}
       </Dialog>
 
       <AppBar position="static">
         <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <IconButton onClick={handleHButtonHomeClick}>
-              <HomeIcon />
-            </IconButton>
-
-            <IconButton onClick={handleHButtonCartClick}>
-              <Badge badgeContent={7} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
-                <HeaderCategory />
+          <Toolbar
+            sx={{ display: "flex", justifyContent: "space-between" }}
+            disableGutters
+          >
+            <Box>
+              <IconButton onClick={handleHButtonHomeClick}>
+                <HomeIcon />
               </IconButton>
-            </Box>
 
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex", width: "1170px" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            ></Typography>
+              <IconButton onClick={handleHButtonCartClick}>
+                <Badge badgeContent={7} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
+                  <HeaderCategory />
+                </IconButton>
+              </Box>
+            </Box>
+            {/* //------------------ */}
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

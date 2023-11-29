@@ -14,6 +14,7 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
+  
 
   const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {

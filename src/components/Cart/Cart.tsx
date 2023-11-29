@@ -120,9 +120,7 @@ const ProductCart = () => {
     );
     setProducts(updatedCart);
   };
-  //   const removeFromCart = (indexProduct: number) => {
-  //     const index = products.findIndex(indexProduct)
-  //   };
+ 
 
   return (
     <div className="product-cart">

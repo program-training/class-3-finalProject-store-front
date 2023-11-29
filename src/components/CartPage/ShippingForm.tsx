@@ -2,11 +2,11 @@ import { FieldValues, useForm } from "react-hook-form";
 import { TextField, Button, Typography, Container, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { ErrorMessage } from "@hookform/error-message";
 
-const ShippingForm = ({}) => {
+const ShippingForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmitHandler = (data: FieldValues) => {
-    const {} = data
+     data
   };
 
   return (

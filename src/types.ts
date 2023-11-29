@@ -14,16 +14,16 @@ export interface IProduct {
   };
 }
 
-type productType = Partial<IProduct>;
+export type productType = Partial<IProduct>;
 
 export interface UserCart {
-  product: productType;
-  quantity: number;
+  productsCart: IProduct[];
 }
 
 export type Category = {
   id: string;
   name: string;
+  img: string;
 };
 
 export interface PaymentFormProps {
@@ -51,4 +51,9 @@ export interface Order {
   status: string;
   price: number;
   shippingDetails: ShippingDetails;
+}
+export interface SignUp_signIn {
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }

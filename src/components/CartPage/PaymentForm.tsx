@@ -1,12 +1,12 @@
-import { useForm } from "react-hook-form";
-import { TextField, Button, Typography, Container, Chip,  } from "@mui/material";
+import { FieldValues, useForm } from "react-hook-form";
+import { TextField, Button, Typography, Container } from "@mui/material";
 import { PaymentFormProps } from "../../types";
 import { ErrorMessage } from "@hookform/error-message";
 
 const PaymentForm = ({ subtotal, shippingFee }: PaymentFormProps) => {
   const { register, handleSubmit, formState: {errors} } = useForm();
 
-  const onSubmitHandler = (data: any) => {
+  const onSubmitHandler = (data: FieldValues) => {
     data
 };
 

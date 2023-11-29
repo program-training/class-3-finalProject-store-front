@@ -12,9 +12,9 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signIn } from "../../types";
+import { SignUp_signInProp } from "../../types";
 
-export default function SignIn(prop: SignUp_signIn) {
+export default function SignIn(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);

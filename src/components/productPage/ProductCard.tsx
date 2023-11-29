@@ -1,5 +1,5 @@
 import { IProduct } from "../../types";
-import { Card, CardContent, CardMedia, Typography, Chip, LinearProgress } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Chip } from "@mui/material";
 import { FC } from "react";
 
 interface IProductCardProps {

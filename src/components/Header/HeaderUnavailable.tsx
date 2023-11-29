@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,6 +13,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/system";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import SignIn from "../SignIn/SignIn";
+import SignUp from "../SignUp/SignUp";
+import HeaderCategory from "./HeaderCategory";
+import { useState } from "react";
 
 const settings = ["signUp", "signIn"];
 
@@ -46,96 +51,146 @@ const StyledBadge = styled(Badge)(() => ({
 }));
 
 export function HeaderUnavailable() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const navigate = useNavigate();
 
+  const handleHButtonHomeClick = () => {
+    navigate("/");
+  };
+  const handleHButtonCartClick = () => {
+    navigate("/");
+  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
+  };
+  const handleOpenCategoryMenu = () => {
+    setOpenCategoryMenu(!openCategoryMenu);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+    setIsSignedUp(false);
+  };
+
+  const handleSignUp = () => {
+    setIsSignedUp(true);
+    setIsSignedIn(false);
+  };
+  const handleClickPop = (setting: string) => {
+    if (setting === "signUp") {
+      handleSignUp();
+    } else {
+      handleSignIn();
+    }
+    handleCloseUserMenu();
+  };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <IconButton>
-            <HomeIcon
-              onClick={() => {
-                navigate(`/`);
-              }}
-            />
-          </IconButton>
+    <>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        {isSignedIn && (
+          <DialogContent>
+            <SignIn setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
+          </DialogContent>
+        )}
+        {isSignedUp && (
+          <DialogContent>
+            <SignUp setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
+          </DialogContent>
+        )}
+      </Dialog>
 
-          <IconButton>
-            <Badge badgeContent={7} color="error">
-              <ShoppingCartIcon
-                onClick={() => {
-                  navigate(`/cart`);
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <IconButton onClick={handleHButtonHomeClick}>
+              <HomeIcon />
+            </IconButton>
+
+            <IconButton onClick={handleHButtonCartClick}>
+              <Badge badgeContent={7} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
+                <HeaderCategory />
+              </IconButton>
+            </Box>
+
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex", width: "1170px" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            ></Typography>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <StyledBadge>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar />
+                  </IconButton>
+                </StyledBadge>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
                 }}
-              />
-            </Badge>
-          </IconButton>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex", width: "100vh" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          ></Typography>
-
-          <Box sx={{ flexGrow: 0 , }}>
-            <Tooltip title="Open settings">
-              <StyledBadge >
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
-                </IconButton>
-              </StyledBadge>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => {
-                    navigate(`${setting}`);
-                  }}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={() => {
+                      handleClickPop(setting);
+                      handleClickOpen();
+                    }}
+                  >
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }

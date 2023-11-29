@@ -14,7 +14,9 @@ export interface IProduct {
   };
 }
 
-export type productType = Partial<IProduct>;
+export interface IProductCardProps {
+  product: IProduct;
+}
 
 export interface UserCart {
   productsCart: IProduct[];
@@ -27,8 +29,8 @@ export type Category = {
 };
 
 export interface PaymentFormProps {
-  subtotal: number,
-  shippingFee: number
+  subtotal: number;
+  shippingFee: number;
 }
 
 export interface OrderProduct {
@@ -52,7 +54,7 @@ export interface Order {
   price: number;
   shippingDetails: ShippingDetails;
 }
-export interface SignUp_signIn {
+export interface SignUp_signInProp {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;

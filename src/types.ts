@@ -14,6 +14,10 @@ export interface IProduct {
   };
 }
 
+export interface IProductCardProps {
+  product: IProduct;
+}
+
 type productType = Partial<IProduct>;
 export interface UserCart {
   product: productType;
@@ -25,7 +29,7 @@ export type Category = {
   name: string;
 };
 
-export interface SignUp_signIn {
+export interface SignUp_signInProp {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;

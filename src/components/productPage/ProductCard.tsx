@@ -1,10 +1,6 @@
-import { IProduct } from "../../types";
+import { IProductCardProps } from "../../types";
 import { Card, CardContent, CardMedia, Typography, Chip } from "@mui/material";
 import { FC } from "react";
-
-interface IProductCardProps {
-  product: IProduct;
-}
 
 const ProductCard: FC<IProductCardProps> = ({ product }) => {
   const { image, name, description, salePrice, quantity, category, discountPercentage } = product;

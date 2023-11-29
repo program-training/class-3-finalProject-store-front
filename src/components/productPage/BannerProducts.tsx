@@ -6,7 +6,7 @@ import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
 
 const componentsArr: React.ReactNode[] = [];
-for (let i = 0; i <= 5; i++) {
+for (let i = 0; i <= 4; i++) {
   componentsArr.push(<ProductsSkelton key={i} />);
 }
 

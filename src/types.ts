@@ -54,7 +54,7 @@ export interface Order {
   price: number;
   shippingDetails: ShippingDetails;
 }
-export interface SignUp_signIn {
+export interface SignUp_signInProp {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;

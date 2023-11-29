@@ -9,10 +9,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LayersHeader />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
-            <Route path="/cart" element={<PaymentForm subtotal={30.72} shippingFee={12.33} />} />
+          <Route path="/store" element={<LayersHeader />}>
+            <Route path="/store" element={<Home />} />
+            <Route path="/store/product/:productId" element={<ProductPage />} />
+            <Route path="/store/cart" element={<PaymentForm subtotal={30.72} shippingFee={12.33} />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,4 @@
 import Menu from "@mui/material/Menu";
-
 import {
   Avatar,
   Container,
@@ -11,7 +10,6 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
-
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +19,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeaderCategory from "./HeaderCategory";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 const settings = ["signUp", "signIn"];
 
@@ -64,10 +64,10 @@ export function HeaderUnavailable() {
   const navigate = useNavigate();
 
   const handleHButtonHomeClick = () => {
-    navigate("/");
+    navigate("/store");
   };
   const handleHButtonCartClick = () => {
-    navigate("/cart");
+    navigate("/store/cart");
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -101,11 +101,15 @@ export function HeaderUnavailable() {
     }
     handleCloseUserMenu();
   };
+  // useEffect(()=>{
 
-  // const sum = useAppSelector((state: RootState) => state.userCart.cart);
-  // console.log(sum);
-  // setSumInCart(sum.productsCart.length);
-  // console.log(sumInCart);
+  // })
+  const arrayProducts = useAppSelector(
+    (state: RootState) => state.userCart.cart
+  );
+  console.log(arrayProducts);
+  setSumInCart(arrayProducts.productsCart.length);
+  console.log(sumInCart);
 
   return (
     <>
@@ -146,12 +150,6 @@ export function HeaderUnavailable() {
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <HeaderCategory />
-                </IconButton>
-              </Box>
             </Box>
             {/* //------------------ */}
 

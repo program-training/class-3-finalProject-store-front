@@ -21,6 +21,7 @@ export interface UserCart {
 export type Category = {
   id: string;
   name: string;
+  img: string;
 };
 
 export interface SignUp_signIn {

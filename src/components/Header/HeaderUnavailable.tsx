@@ -17,7 +17,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-import HeaderCategory from "./HeaderCategory";
 import { useState } from "react";
 
 const settings = ["signUp", "signIn"];
@@ -128,13 +127,6 @@ export function HeaderUnavailable() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenCategoryMenu} sx={{ p: 0 }}>
-                <HeaderCategory />
-              </IconButton>
-            </Box>
-
             <Typography
               variant="h6"
               noWrap

@@ -67,7 +67,7 @@ export function HeaderAvailable() {
           <IconButton>
             <HomeIcon
               onClick={() => {
-                navigate(`/`);
+                navigate(`/store`);
               }}
             />
           </IconButton>
@@ -76,7 +76,7 @@ export function HeaderAvailable() {
             <Badge badgeContent={7} color="error">
               <ShoppingCartIcon
                 onClick={() => {
-                  navigate(`/cart`);
+                  navigate(`/store/cart`);
                 }}
               />
             </Badge>

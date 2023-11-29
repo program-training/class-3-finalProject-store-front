@@ -8,9 +8,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LayersHeader />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
+          <Route path="/store" element={<LayersHeader />}>
+            <Route path="/store" element={<Home />} />
+            <Route path="/store/product/:productId" element={<ProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

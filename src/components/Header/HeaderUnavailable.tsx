@@ -104,12 +104,12 @@ export function HeaderUnavailable() {
   // useEffect(()=>{
 
   // })
-  const arrayProducts = useAppSelector(
-    (state: RootState) => state.userCart.cart
-  );
-  console.log(arrayProducts);
-  setSumInCart(arrayProducts.productsCart.length);
-  console.log(sumInCart);
+  // const arrayProducts = useAppSelector(
+  //   (state: RootState) => state.userCart.cart
+  // );
+  // console.log(arrayProducts);
+  // setSumInCart(arrayProducts.productsCart.length);
+  // console.log(sumInCart);
 
   return (
     <>

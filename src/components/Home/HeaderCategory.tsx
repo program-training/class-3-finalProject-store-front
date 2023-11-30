@@ -4,12 +4,15 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
 import { Category } from "../../types";
+import Banners from "../Banners/Banners";
 
 const HeaderCategory: React.FC = () => {
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
+  const [value, setValue] = useState<number[]>([30, 150]);
+  const [banner, setBanner] = useState<boolean>(false);
+  const [bannerName, setBannerName] = useState<string>("");
   const dispatch = useAppDispatch();
-  const [value, setValue] = React.useState<number[]>([30, 150]);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -42,33 +45,39 @@ const HeaderCategory: React.FC = () => {
     fetchCategories();
   }, []);
 
-
   const handleSearchUpdate = (newSearch: string) => {
     dispatch(setSearch(newSearch));
+    setBanner(true);
   };
 
   return (
-    <Box sx={{ margin: "7px" }}>
-      {loadingCategories && <p>Loading categories...</p>}
-      {categories && !loadingCategories && (
-        <Stack direction="row" spacing={1}>
-          {categories.map((category, index) => (
-            <Chip
-              key={index}
-              avatar={<Avatar alt={category.name} src={category.img} />}
-              label={category.name}
-              variant="outlined"
-              sx={{ height: "60px", margin: "10px" }}
-              onClick={() => handleSearchUpdate(category.name)}
-            />
-          ))}
-        </Stack>
-      )}
-      <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
-      <ListItemButton sx={{ pl: 2 }} onClick={handleApplyFilter}>
-        <ListItemText primary="Apply" />
-      </ListItemButton>
-    </Box>
+    <>
+      {banner && <Banners categoryName={bannerName} />}
+      <Box sx={{ margin: "7px" }}>
+        {loadingCategories && <p>Loading categories...</p>}
+        {categories && !loadingCategories && (
+          <Stack direction="row" spacing={1}>
+            {categories.map((category, index) => (
+              <Chip
+                key={index}
+                avatar={<Avatar alt={category.name} src={category.img} />}
+                label={category.name}
+                variant="outlined"
+                sx={{ height: "60px", margin: "10px" }}
+                onClick={() => {
+                  handleSearchUpdate(category.name);
+                  setBannerName(category.name);
+                }}
+              />
+            ))}
+          </Stack>
+        )}
+        <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+        <ListItemButton sx={{ pl: 2 }} onClick={handleApplyFilter}>
+          <ListItemText primary="Apply" />
+        </ListItemButton>
+      </Box>
+    </>
   );
 };
 

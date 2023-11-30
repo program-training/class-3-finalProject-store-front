@@ -12,9 +12,9 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signIn } from "../../types";
+import { SignUp_signInProp } from "../../types";
 
-export default function SignIn(prop: SignUp_signIn) {
+export default function SignIn(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
@@ -34,6 +34,7 @@ export default function SignIn(prop: SignUp_signIn) {
         setTimeout(() => {
           prop.setIsSignedIn(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;
@@ -138,7 +139,7 @@ export default function SignIn(prop: SignUp_signIn) {
           </Box>
         </Box>
       </Container>
-      {success && <Typography>You have successfully signed</Typography>}
+      {success && <Typography>You've logged in successfully</Typography>}
     </>
   );
 }

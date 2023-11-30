@@ -7,7 +7,7 @@ import CartPage from "./components/CartPage/CartPage";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/store">
         <Routes>
           <Route path="/" element={<LayersHeader />}>
             <Route path="/" element={<Home />} />

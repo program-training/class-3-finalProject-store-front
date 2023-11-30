@@ -4,9 +4,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signIn } from "../../types";
+import { SignUp_signInProp } from "../../types";
 
-export default function SignUp(prop: SignUp_signIn) {
+export default function SignUp(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
@@ -28,6 +28,7 @@ export default function SignUp(prop: SignUp_signIn) {
         setTimeout(() => {
           prop.setIsSignedUp(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;

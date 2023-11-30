@@ -8,7 +8,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
-import HeaderCategory from "../Header/HeaderCategory";
+import HeaderCategory from "./HeaderCategory";
 import UserCartRedux from "../../hooks/CartReduxHook";
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
+  
 
   const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {

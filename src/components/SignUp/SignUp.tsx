@@ -25,7 +25,6 @@ export default function SignUp(prop: SignUp_signInProp) {
     formState: { errors },
   } = useForm();
   const password: UseFormWatch<Text> = watch("password");
-  const [cartItem, setcartItem] = useState<IProduct[] | null>(null);
   const fetchCart = useUserCartRedux();
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
@@ -36,15 +35,14 @@ export default function SignUp(prop: SignUp_signInProp) {
 
         const getCart: string | null = localStorage.getItem("cart");
         const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
-
-        setcartItem(() => cartParse);
-
-        if (cartItem) {
-          for (let i = 0; i < cartItem.length; i++) {
+        console.log(cartParse);
+        
+        if (cartParse) {
+          for (let i = 0; i < cartParse.length; i++) {
             const cartHookObject: CartHookObgect = {
               method: "post",
-              search: "additem",
-              cartItem: cartItem[i],
+              search: "addItem",
+              cartItem: cartParse[i],
             };
             await fetchCart(cartHookObject);
           }

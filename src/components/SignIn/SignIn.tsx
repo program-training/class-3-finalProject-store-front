@@ -12,13 +12,15 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signInProp } from "../../types";
+import { CartHookObgect, IProduct, SignUp_signInProp } from "../../types";
 import useUserCartRedux from "../../hooks/CartReduxHook";
 
 export default function SignIn(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
+  const fetchCart = useUserCartRedux();
+
   const {
     register,
     handleSubmit,
@@ -31,14 +33,18 @@ export default function SignIn(prop: SignUp_signInProp) {
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data));
 
-        // const getCart = localStorage.getItem("cart");
-        // if (getCart) {
-        //   const productCart = JSON.parse(getCart);
-        //   for (let i = 0; i < productCart.length; i++) {
-        //     useUserCartRedux("post", productCart[i], "additem");
-        //   }
-        // }
-
+        const getCart: string | null = localStorage.getItem("cart");
+        const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
+        if (cartParse) {
+          for (let i = 0; i < cartParse.length; i++) {
+            const cartHookObject: CartHookObgect = {
+              method: "post",
+              search: "/addItem",
+              cartItem: cartParse[i],
+            };
+            await fetchCart(cartHookObject);
+          }
+        }
 
         setSuccess(true);
         setDisable(true);

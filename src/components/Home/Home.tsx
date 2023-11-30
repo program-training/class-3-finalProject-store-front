@@ -25,7 +25,7 @@ export default function Home() {
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
-  
+
     if (!getToken) {
       const cartString: string | null = localStorage.getItem("cart");
       const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];

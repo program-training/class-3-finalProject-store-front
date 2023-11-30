@@ -105,7 +105,10 @@ const ProductCart = () => {
   };
 
   const removeFromCart = (indexProduct: number) => {
-    const updatedCart = products.filter((index) => indexProduct !== index);
+    const updatedCart = products.filter((product, index) => {
+      indexProduct !== index;
+      product;
+    });
     setProducts(updatedCart);
   };
 

@@ -16,8 +16,13 @@ export interface IProduct {
 
 export type productType = Partial<IProduct>;
 
+export interface CartItem {
+  userId: string;
+  product: IProduct;
+}
+
 export interface UserCart {
-  productsCart: IProduct[];
+  productsCart: CartItem[];
 }
 
 export type Category = {
@@ -34,7 +39,7 @@ export interface OrderProduct {
   quantity: number;
 }
 export interface ShippingDetails {
-  userId?: number;
+  userId?: string;
   address: string;
   contactNumber: string;
   orderType: string;

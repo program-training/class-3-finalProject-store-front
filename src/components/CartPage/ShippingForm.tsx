@@ -1,19 +1,14 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useState } from "react";
 import { TextField, Button, Typography, Container, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { ErrorMessage } from "@hookform/error-message";
 import { ShippingDetails } from "../../types";
-import { useHandleShippingDetailsSubmit } from "../../helpers/costumHooks";
 
 const ShippingForm = () => {
-  const [shippingDetails, setShippingDetails] = useState<ShippingDetails | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  shippingDetails && useHandleShippingDetailsSubmit(shippingDetails);
 
   const onSubmitHandler = (data: FieldValues) => {
     const { phoneNumber, address, city, state, zipCode, shippingMethod } = data;
@@ -22,7 +17,7 @@ const ShippingForm = () => {
       contactNumber: phoneNumber,
       orderType: shippingMethod,
     };
-    setShippingDetails(shippingData);
+    shippingData;
   };
 
   return (
@@ -31,12 +26,6 @@ const ShippingForm = () => {
         Shipping Information
       </Typography>
       <Container sx={{ display: `flex`, flexDirection: `column` }}>
-        {/* <TextField sx={{ margin: "15px 0 0 0" }}
-          {...register("fullName", { required: "* Enter full name" })}
-          label="Full Name"
-          variant="outlined"
-        /> */}
-        {errors.fullName && <ErrorMessage errors={errors} name="fullName" render={({ message }) => <Typography>{message}</Typography>} />}
         <TextField
           sx={{ margin: "15px 0 0 0" }}
           {...register("phoneNumber", { required: "* Enter phone number" })}

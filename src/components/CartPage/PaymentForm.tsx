@@ -3,18 +3,13 @@ import { TextField, Button, Typography, Container } from "@mui/material";
 import { ErrorMessage } from "@hookform/error-message";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store"
-import {useState} from "react"
-import { useHandleConfirmOrder } from "../../helpers/costumHooks";
 
 const PaymentForm = () => {
-  const [flag, setFlag] = useState<boolean>(false)
-  flag && useHandleConfirmOrder()
   const { register, handleSubmit, formState: {errors} } = useForm();
   const price = useAppSelector((state: RootState) => state.order.orderDetails.price)
 
   const onSubmitHandler = (data: FieldValues) => {
     data
-    setFlag(true)
 };
 
   return (

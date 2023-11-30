@@ -66,7 +66,7 @@ const HeaderCategory: React.FC = () => {
                 sx={{ height: "60px", margin: "10px" }}
                 onClick={() => {
                   handleSearchUpdate(category.name);
-                  setBannerName(category.name);
+                  setBannerName("exampleCategory_a");
                 }}
               />
             ))}

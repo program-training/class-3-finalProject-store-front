@@ -16,7 +16,6 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
-  
 
   const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
@@ -62,6 +61,7 @@ export default function Home() {
             products.map((product) => (
               <CardActionArea
                 sx={{ maxWidth: 345, flex: "1 1 300px", margin: "1rem" }}
+                key={product._id}
                 onClick={() => {
                   handelNavAndRedux(product._id);
                 }}

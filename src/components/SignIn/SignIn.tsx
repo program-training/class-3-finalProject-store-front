@@ -34,6 +34,7 @@ export default function SignIn(prop: SignUp_signInProp) {
         setTimeout(() => {
           prop.setIsSignedIn(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;

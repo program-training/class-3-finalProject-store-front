@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LayersHeader from "./components/Header/Layers";
 import Home from "./components/Home/Home";
 import PaymentForm from "./components/CartPage/PaymentForm";
-import ProductPage from "./components/ProductPage/ProductPage";
+import ProductPage from "./components/productPage/ProductPage";
+
 
 function App() {
   return (

@@ -30,7 +30,7 @@ const StyledBadge = styled(Badge)(() => ({
   },
 }));
 
-export function HeaderAvailable() {
+export function HeaderAvailable(prop: { setIsToken: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,8 +40,9 @@ export function HeaderAvailable() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  function handleCloseLogout() {
+  function handleCloseLogout(setIsToken: React.Dispatch<React.SetStateAction<boolean>>) {
     localStorage.removeItem("token");
+    setIsToken(false);
     handleCloseUserMenu();
   }
 
@@ -69,7 +70,7 @@ export function HeaderAvailable() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key={"logout"} onClick={handleCloseLogout}>
+        <MenuItem key={"logout"} onClick={() => handleCloseLogout(prop.setIsToken)}>
           <Typography textAlign="center">logout</Typography>
         </MenuItem>
       </Menu>

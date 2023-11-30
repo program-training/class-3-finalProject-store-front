@@ -18,8 +18,13 @@ export interface IProductCardProps {
   product: IProduct;
 }
 
+export interface CartItem {
+  userId: string;
+  product: IProduct;
+}
+
 export interface UserCart {
-  productsCart: IProduct[];
+  productsCart: CartItem[];
 }
 
 export type Category = {
@@ -27,11 +32,6 @@ export type Category = {
   name: string;
   img: string;
 };
-
-export interface PaymentFormProps {
-  subtotal: number;
-  shippingFee: number;
-}
 
 export interface OrderProduct {
   id: string;
@@ -41,7 +41,7 @@ export interface OrderProduct {
   quantity: number;
 }
 export interface ShippingDetails {
-  userId: number;
+  userId?: string;
   address: string;
   contactNumber: string;
   orderType: string;

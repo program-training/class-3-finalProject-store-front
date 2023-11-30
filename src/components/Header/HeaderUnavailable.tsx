@@ -1,23 +1,12 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import { Menu, styled, DialogContent, Dialog, Badge, Avatar, Container, Typography, IconButton, Toolbar, Box, AppBar, Tooltip, MenuItem } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import Badge from "@mui/material/Badge";
-import { styled } from "@mui/system";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 const settings = ["signUp", "signIn"];
 
@@ -54,35 +43,35 @@ export function HeaderUnavailable() {
   const [openDialog, setOpenDialog] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [sumInCart, setSumInCart] = useState(0);
 
+  const arrayProducts = useAppSelector((state: RootState) => state.userCart.cart);
+  useEffect(() => {
+    setSumInCart(arrayProducts.productsCart.length);
+  }, []);
   const navigate = useNavigate();
-
   const handleHButtonHomeClick = () => {
-    navigate("/store");
+    navigate("/");
   };
   const handleHButtonCartClick = () => {
-    navigate("/store/cart");
+    navigate("/cart");
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
-
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
   const handleSignIn = () => {
     setIsSignedIn(true);
     setIsSignedUp(false);
   };
-
   const handleSignUp = () => {
     setIsSignedUp(true);
     setIsSignedIn(false);
@@ -110,35 +99,19 @@ export function HeaderUnavailable() {
           </DialogContent>
         )}
       </Dialog>
-
       <AppBar position="static">
         <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <IconButton onClick={handleHButtonHomeClick}>
-              <HomeIcon />
-            </IconButton>
-
-            <IconButton onClick={handleHButtonCartClick}>
-              <Badge badgeContent={7} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex", width: "1170px" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            ></Typography>
-
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }} disableGutters>
+            <Box>
+              <IconButton onClick={handleHButtonHomeClick}>
+                <HomeIcon />
+              </IconButton>
+              <IconButton onClick={handleHButtonCartClick}>
+                <Badge badgeContent={sumInCart} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <StyledBadge>

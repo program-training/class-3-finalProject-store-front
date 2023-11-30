@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, Slider, Stack, Chip, Avatar, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  Slider,
+  Stack,
+  Chip,
+  Avatar,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
@@ -24,13 +32,17 @@ const HeaderCategory: React.FC = () => {
   };
 
   const applyFilter = (priceRange: number[]) => {
-    dispatch(setSearch(`filter by price range: ${priceRange[0]} - ${priceRange[1]}`));
+    dispatch(
+      setSearch(`filter by price range: ${priceRange[0]} - ${priceRange[1]}`)
+    );
   };
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/products/categories`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/products/categories`
+        );
         setCategories(response.data);
         setLoadingCategories(false);
       } catch (error) {
@@ -41,7 +53,6 @@ const HeaderCategory: React.FC = () => {
 
     fetchCategories();
   }, []);
-
 
   const handleSearchUpdate = (newSearch: string) => {
     dispatch(setSearch(newSearch));
@@ -64,7 +75,14 @@ const HeaderCategory: React.FC = () => {
           ))}
         </Stack>
       )}
-      <Slider getAriaLabel={() => "price range"} max={1000} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+      <Slider
+        getAriaLabel={() => "price range"}
+        max={1000}
+        value={value}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
       <ListItemButton sx={{ pl: 2 }} onClick={handleApplyFilter}>
         <ListItemText primary="Apply" />
       </ListItemButton>

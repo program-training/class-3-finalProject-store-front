@@ -63,7 +63,10 @@ export function HeaderAvailable() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          sx={{ display: "flex", justifyContent: "space-between" }}
+          disableGutters
+        >
           <IconButton>
             <HomeIcon
               onClick={() => {
@@ -82,21 +85,6 @@ export function HeaderAvailable() {
             </Badge>
           </IconButton>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex", width: "1170px" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          ></Typography>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

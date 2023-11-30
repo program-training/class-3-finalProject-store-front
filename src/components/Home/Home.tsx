@@ -78,10 +78,10 @@ export default function Home() {
                     <Stack direction="row" alignItems="center">
                       {product.discountPercentage && (
                         <Typography color="textSecondary" ml={1} sx={{ margin: "1rem", textDecoration: "line-through" }}>
-                          ₪{product.salePrice}
+                          ${product.salePrice}
                         </Typography>
                       )}
-                      {product.discountPercentage && <Typography variant="h6"> ₪ {(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
+                      {product.discountPercentage && <Typography variant="h6"> $ {(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
                     </Stack>
                   </Stack>
                 </CardContent>

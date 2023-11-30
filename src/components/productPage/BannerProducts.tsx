@@ -17,7 +17,9 @@ const BannerProducts = (prop: { categoryName: string }) => {
   useEffect(() => {
     const getBannerProducts = async () => {
       try {
-        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/api/products/banners`, { params: {categoryName: prop.categoryName, quantity: 5} });
+        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/api/products/banners`, {
+          params: { categoryName: prop.categoryName, quantity: 5 },
+        });
         const bannerProductsList: IProduct[] = fetchBannerProducts.data;
         setBannerProducts(bannerProductsList);
       } catch (error) {
@@ -35,12 +37,23 @@ const BannerProducts = (prop: { categoryName: string }) => {
         </Box>
       ) : (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-          {bannerProducts.map((product) => (
+          {bannerProducts.map(product => (
             <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/product/${product._id}`)}>
               <CardMedia sx={{ height: 140 }} image={product.image.large} title="green iguana" />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {product.name}
+                </Typography>
+                <Typography gutterBottom component="div" sx={{ display: `flex`, margin: `50px 0 0 0` }}>
+                  <Typography variant="h6" sx={{ fontSize: `30px` }}>
+                    ${(product.salePrice * ((100 - product.discountPercentage) / 100)).toFixed(2)}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    color="text.secondary"
+                    sx={{ textDecoration: `line-through`, padding: `0 10px 0 10px`, color: `#fd384f`, fontSize: `17px` }}>
+                    ${product.salePrice}
+                  </Typography>
                 </Typography>
               </CardContent>
             </Card>

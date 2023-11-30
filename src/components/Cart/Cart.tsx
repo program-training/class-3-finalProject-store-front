@@ -30,12 +30,9 @@ const ProductCart = () => {
       discountPercentage: 12,
       image: {
         alt: "Nintendo Switch Image",
-        large:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
-        medium:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
-        small:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
+        large: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
+        medium: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
+        small: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
       },
       name: "Nintendo Switch nwe",
       quantity: 60,
@@ -48,12 +45,9 @@ const ProductCart = () => {
       discountPercentage: 12,
       image: {
         alt: "Nintendo Switch Image",
-        large:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
-        medium:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
-        small:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
+        large: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
+        medium: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
+        small: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
       },
       name: "Nintendo Switch nwe",
       quantity: 60,
@@ -66,12 +60,9 @@ const ProductCart = () => {
       discountPercentage: 12,
       image: {
         alt: "Nintendo Switch Image",
-        large:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
-        medium:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
-        small:
-          "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
+        large: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_600.png?raw=true",
+        medium: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_300.png?raw=true",
+        small: "https://raw.githubusercontent.com/akiva1132/filesServer/master/dist/products/gadgets/nintendoswitch_150.png?raw=true",
       },
       name: "Nintendo Switch nwe",
       quantity: 60,
@@ -95,13 +86,12 @@ const ProductCart = () => {
       .then((data) => {
         setProducts(data);
       });
-      products.map((product) => {
-        console.log(product);
-  
-        setQuantity({ ...quantity ,[product._id]: 1 });
-        console.log(quantity);
+    products.map((product) => {
+      console.log(product);
+
+      setQuantity({ ...quantity, [product._id]: 1 });
+      console.log(quantity);
     });
-   
   }, []);
   const addQuantity = (productId: string) => {
     const add = (quantity[productId] += 1);
@@ -115,12 +105,9 @@ const ProductCart = () => {
   };
 
   const removeFromCart = (indexProduct: number) => {
-    const updatedCart = products.filter(
-      (product, index) => indexProduct !== index
-    );
+    const updatedCart = products.filter((index) => indexProduct !== index);
     setProducts(updatedCart);
   };
- 
 
   return (
     <div className="product-cart">
@@ -129,12 +116,7 @@ const ProductCart = () => {
         {products.map((product, index) => (
           <Card key={product._id} sx={{ maxWidth: 232 }}>
             <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                image={product.image.small}
-                alt={product.image.alt}
-              />
+              <CardMedia component="img" height="140" image={product.image.small} alt={product.image.alt} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {product.name}
@@ -147,9 +129,7 @@ const ProductCart = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   <IconButton>
-                    <AddCircleOutlineIcon
-                      onClick={() => addQuantity(product._id)}
-                    />
+                    <AddCircleOutlineIcon onClick={() => addQuantity(product._id)} />
                   </IconButton>
                   {quantity[product._id]}
                   <IconButton onClick={() => reduceQuantity(product._id)}>

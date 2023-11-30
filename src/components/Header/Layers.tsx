@@ -1,11 +1,11 @@
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router";
-import HeaderRouter from "./Header";
+import { Header } from "./Header";
 
 const LayersHeader = () => {
   return (
     <>
-      <HeaderRouter />
+      <Header />
       <Outlet />
       <Footer />
     </>

@@ -32,7 +32,7 @@ export default function SignUp(prop: SignUp_signInProp) {
       const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
       if (api.statusText === "Created") {
         localStorage.setItem("token", JSON.stringify(api.data));
-
+        const getToken = localStorage.getItem("token");
         const getCart: string | null = localStorage.getItem("cart");
         const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
         console.log(cartParse);
@@ -43,6 +43,7 @@ export default function SignUp(prop: SignUp_signInProp) {
               method: "post",
               search: "addItem",
               cartItem: cartParse[i],
+              token: getToken,
             };
             await fetchCart(cartHookObject);
           }
@@ -53,6 +54,7 @@ export default function SignUp(prop: SignUp_signInProp) {
         setTimeout(() => {
           prop.setIsSignedUp(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;

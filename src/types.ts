@@ -17,8 +17,9 @@ export interface IProduct {
 }
 export interface CartHookObgect {
   method: Method;
-   cartItem?: IProduct;
-    search?: string;
+  token: string | null;
+  cartItem?: IProduct;
+  search?: string;
 }
 export interface IProductCardProps {
   product: IProduct;
@@ -64,4 +65,5 @@ export interface SignUp_signInProp {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsToken: React.Dispatch<React.SetStateAction<boolean>>;
 }

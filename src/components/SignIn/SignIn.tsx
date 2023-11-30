@@ -32,7 +32,7 @@ export default function SignIn(prop: SignUp_signInProp) {
       const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/logIn`, data);
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data));
-
+        const getToken = localStorage.getItem("token");
         const getCart: string | null = localStorage.getItem("cart");
         const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
         if (cartParse) {
@@ -41,6 +41,7 @@ export default function SignIn(prop: SignUp_signInProp) {
               method: "post",
               search: "/addItem",
               cartItem: cartParse[i],
+              token: getToken,
             };
             await fetchCart(cartHookObject);
           }
@@ -51,6 +52,7 @@ export default function SignIn(prop: SignUp_signInProp) {
         setTimeout(() => {
           prop.setIsSignedIn(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;
@@ -155,7 +157,7 @@ export default function SignIn(prop: SignUp_signInProp) {
           </Box>
         </Box>
       </Container>
-      {success && <Typography>You have successfully signed</Typography>}
+      {success && <Typography>You've logged in successfully</Typography>}
     </>
   );
 }

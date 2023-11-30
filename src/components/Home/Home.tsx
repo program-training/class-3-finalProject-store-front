@@ -16,7 +16,6 @@ export default function Home() {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const env = import.meta.env;
   const search = useAppSelector((state: RootState) => state.search.name);
-  
 
   const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
@@ -65,6 +64,7 @@ export default function Home() {
             products.map((product) => (
               <CardActionArea
                 sx={{ maxWidth: 345, flex: "1 1 300px", margin: "1rem" }}
+                key={product._id}
                 onClick={() => {
                   handelNavAndRedux(product._id);
                 }}
@@ -81,10 +81,10 @@ export default function Home() {
                     <Stack direction="row" alignItems="center">
                       {product.discountPercentage && (
                         <Typography color="textSecondary" ml={1} sx={{ margin: "1rem", textDecoration: "line-through" }}>
-                          ₪{product.salePrice}
+                          ${product.salePrice}
                         </Typography>
                       )}
-                      {product.discountPercentage && <Typography variant="h6"> ₪ {(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
+                      {product.discountPercentage && <Typography variant="h6"> $ {(product.salePrice - product.salePrice * (product.discountPercentage / 100)).toFixed(2)}</Typography>}
                     </Stack>
                   </Stack>
                 </CardContent>

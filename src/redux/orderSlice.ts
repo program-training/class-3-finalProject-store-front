@@ -13,7 +13,7 @@ const initialState: OrderState = {
     status: ``,
     price: 0,
     shippingDetails: {
-      userId: 0,
+      userId: ``,
       address: ``,
       contactNumber: ``,
       orderType: ``,

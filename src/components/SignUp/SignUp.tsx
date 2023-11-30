@@ -1,13 +1,6 @@
 import { useForm, type FieldValues, UseFormWatch } from "react-hook-form";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
@@ -72,8 +65,7 @@ export default function SignUp(prop: SignUp_signInProp) {
           display: disable ? "none" : "auto",
         }}
         component="main"
-        maxWidth="xs"
-      >
+        maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -81,8 +73,7 @@ export default function SignUp(prop: SignUp_signInProp) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}
-        >
+          }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -113,7 +104,8 @@ export default function SignUp(prop: SignUp_signInProp) {
                     required: "password is required",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&()*-+=]).+$/,
-                      message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
+                      message:
+                        "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
                     },
                     minLength: {
                       value: 8,
@@ -137,7 +129,8 @@ export default function SignUp(prop: SignUp_signInProp) {
                     required: "password is required",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&()*-+=]).+$/,
-                      message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
+                      message:
+                        "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
                     },
                     minLength: {
                       value: 8,
@@ -147,7 +140,7 @@ export default function SignUp(prop: SignUp_signInProp) {
                       value: 20,
                       message: "password most be maximum 20 characters",
                     },
-                    validate: (value) => value === password || "The passwords do not match",
+                    validate: value => value === password || "The passwords do not match",
                   })}
                   fullWidth
                   margin="normal"
@@ -169,8 +162,7 @@ export default function SignUp(prop: SignUp_signInProp) {
                     onClick={() => {
                       prop.setIsSignedUp(false);
                       prop.setIsSignedIn(true);
-                    }}
-                  >
+                    }}>
                     Sign in
                   </Button>{" "}
                 </Typography>

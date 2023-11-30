@@ -7,7 +7,26 @@ interface ReduxUserCart {
 
 const userCartState: ReduxUserCart = {
   cart: {
-    productsCart: [],
+    productsCart: [
+      {
+        userId: ``,
+        product: {
+          _id: ``,
+          name: `string`,
+          salePrice: 1,
+          quantity: 1,
+          description: `string`,
+          category: `string`,
+          discountPercentage: 1,
+          image: {
+            large: `string`,
+            medium: `string`,
+            small: `string`,
+            alt: `string`,
+          },
+        },
+      },
+    ],
   },
 };
 

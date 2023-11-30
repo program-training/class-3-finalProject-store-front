@@ -10,7 +10,6 @@ import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "../Header/HeaderCategory";
 import UserCartRedux from "../../hooks/CartReduxHook";
-import { log } from "console";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -26,13 +25,14 @@ export default function Home() {
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
+  
     if (!getToken) {
       const cartString: string | null = localStorage.getItem("cart");
       const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      UserCartRedux("GET");
+      // UserCartRedux("GET");
     }
   };
 

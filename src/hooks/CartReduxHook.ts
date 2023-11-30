@@ -1,17 +1,18 @@
 import axios, { Method } from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
-import { IProduct } from "../types";
+import { CartHookObgect, IProduct } from "../types";
 
-const useUserCartRedux = (method: Method, cartItem?: IProduct, search?: string) => {
+const useUserCartRedux = () => {
   const dispatch = useAppDispatch();
   const getToken = localStorage.getItem("token");
   if (!getToken) {
     throw new Error("Token is not found");
   }
 
-  const fetchCart = async () => {
+  const fetchCart = async (cartHookObgect: CartHookObgect) => {
     try {
+      const { method, search, cartItem } = cartHookObgect;
       const response = await axios({
         method,
         url: `${import.meta.env.VITE_BASE_URL}/api/carts${search ? `/${search}` : ""}`,

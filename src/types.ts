@@ -1,3 +1,5 @@
+import { Method } from "axios";
+
 export interface IProduct {
   _id: string;
   name: string;
@@ -13,7 +15,11 @@ export interface IProduct {
     alt: string;
   };
 }
-
+export interface CartHookObgect {
+  method: Method;
+   cartItem?: IProduct;
+    search?: string;
+}
 export interface IProductCardProps {
   product: IProduct;
 }

@@ -31,15 +31,15 @@ export default function SignIn(prop: SignUp_signInProp) {
       if (api.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(api.data));
 
+        // const getCart = localStorage.getItem("cart");
+        // if (getCart) {
+        //   const productCart = JSON.parse(getCart);
+        //   for (let i = 0; i < productCart.length; i++) {
+        //     useUserCartRedux("post", productCart[i], "additem");
+        //   }
+        // }
 
-        const getCart = localStorage.getItem("cart");
-        if (getCart) {
-          const productCart = JSON.parse(getCart);
-          for (let i = 0; i < productCart.length; i++) {
-            useUserCartRedux("post", productCart[i], "additem");
-          }
-        }
-        
+
         setSuccess(true);
         setDisable(true);
         setTimeout(() => {

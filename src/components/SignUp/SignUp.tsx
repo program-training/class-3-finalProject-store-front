@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signInProp } from "../../types";
+import { CartHookObgect, IProduct, SignUp_signInProp } from "../../types";
 import useUserCartRedux from "../../hooks/CartReduxHook";
 
 export default function SignUp(prop: SignUp_signInProp) {
@@ -25,6 +25,8 @@ export default function SignUp(prop: SignUp_signInProp) {
     formState: { errors },
   } = useForm();
   const password: UseFormWatch<Text> = watch("password");
+  const [cartItem, setcartItem] = useState<IProduct[] | null>(null);
+  const fetchCart = useUserCartRedux();
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
@@ -32,11 +34,19 @@ export default function SignUp(prop: SignUp_signInProp) {
       if (api.statusText === "Created") {
         localStorage.setItem("token", JSON.stringify(api.data));
 
-        const getCart = localStorage.getItem("cart");
-        if (getCart) {
-          const productCart = JSON.parse(getCart);
-          for (let i = 0; i < productCart.length; i++) {
-            useUserCartRedux("post", productCart[i], "additem");
+        const getCart: string | null = localStorage.getItem("cart");
+        const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
+
+        setcartItem(() => cartParse);
+
+        if (cartItem) {
+          for (let i = 0; i < cartItem.length; i++) {
+            const cartHookObject: CartHookObgect = {
+              method: "post",
+              search: "additem",
+              cartItem: cartItem[i],
+            };
+            await fetchCart(cartHookObject);
           }
         }
 

@@ -6,7 +6,6 @@ import { IProduct } from "../types";
 const useUserCartRedux = (method: Method, cartItem?: IProduct, search?: string) => {
   const dispatch = useAppDispatch();
   const getToken = localStorage.getItem("token");
-
   if (!getToken) {
     throw new Error("Token is not found");
   }

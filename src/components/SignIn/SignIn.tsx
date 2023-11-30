@@ -34,6 +34,7 @@ export default function SignIn(prop: SignUp_signInProp) {
         setTimeout(() => {
           prop.setIsSignedIn(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;
@@ -138,7 +139,7 @@ export default function SignIn(prop: SignUp_signInProp) {
           </Box>
         </Box>
       </Container>
-      {success && <Typography>You have successfully signed</Typography>}
+      {success && <Typography>You've logged in successfully</Typography>}
     </>
   );
 }

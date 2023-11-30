@@ -35,6 +35,7 @@ export default function SignUp(prop: SignUp_signInProp) {
         setTimeout(() => {
           prop.setIsSignedUp(false);
           prop.setOpenDialog(false);
+          prop.setIsToken(true);
         }, 2000);
       } else {
         throw api;
@@ -163,4 +164,3 @@ export default function SignUp(prop: SignUp_signInProp) {
     </>
   );
 }
-

@@ -8,7 +8,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
-import HeaderCategory from "../Header/HeaderCategory";
+import HeaderCategory from "./HeaderCategory";
 import UserCartRedux from "../../hooks/CartReduxHook";
 
 export default function Home() {

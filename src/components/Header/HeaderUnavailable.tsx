@@ -1,26 +1,10 @@
-import Menu from "@mui/material/Menu";
-import {
-  Avatar,
-  Container,
-  Typography,
-  IconButton,
-  Toolbar,
-  Box,
-  AppBar,
-  Tooltip,
-  MenuItem,
-} from "@mui/material";
+import { Menu, styled, DialogContent, Dialog, Badge, Avatar, Container, Typography, IconButton, Toolbar, Box, AppBar, Tooltip, MenuItem } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import Badge from "@mui/material/Badge";
-import { styled } from "@mui/system";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import { useState, useEffect } from "react";
-import HeaderCategory from "./HeaderCategory";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 
@@ -61,34 +45,33 @@ export function HeaderUnavailable() {
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [sumInCart, setSumInCart] = useState(0);
 
+  const arrayProducts = useAppSelector((state: RootState) => state.userCart.cart);
+  useEffect(() => {
+    setSumInCart(arrayProducts.productsCart.length);
+  }, []);
   const navigate = useNavigate();
-
   const handleHButtonHomeClick = () => {
-    navigate("/store");
+    navigate("/");
   };
   const handleHButtonCartClick = () => {
-    navigate("/store/cart");
+    navigate("/cart");
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
-
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
   const handleSignIn = () => {
     setIsSignedIn(true);
     setIsSignedUp(false);
   };
-
   const handleSignUp = () => {
     setIsSignedUp(true);
     setIsSignedIn(false);
@@ -101,58 +84,34 @@ export function HeaderUnavailable() {
     }
     handleCloseUserMenu();
   };
-  // useEffect(()=>{
-
-  // })
-  // const arrayProducts = useAppSelector(
-  //   (state: RootState) => state.userCart.cart
-  // );
-  // console.log(arrayProducts);
-  // setSumInCart(arrayProducts.productsCart.length);
-  // console.log(sumInCart);
 
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         {isSignedIn && (
           <DialogContent>
-            <SignIn
-              setIsSignedIn={setIsSignedIn}
-              setIsSignedUp={setIsSignedUp}
-              setOpenDialog={setOpenDialog}
-            />
+            <SignIn setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
           </DialogContent>
         )}
         {isSignedUp && (
           <DialogContent>
-            <SignUp
-              setIsSignedIn={setIsSignedIn}
-              setIsSignedUp={setIsSignedUp}
-              setOpenDialog={setOpenDialog}
-            />
+            <SignUp setIsSignedIn={setIsSignedIn} setIsSignedUp={setIsSignedUp} setOpenDialog={setOpenDialog} />
           </DialogContent>
         )}
       </Dialog>
-
       <AppBar position="static">
         <Container maxWidth="xl">
-          <Toolbar
-            sx={{ display: "flex", justifyContent: "space-between" }}
-            disableGutters
-          >
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }} disableGutters>
             <Box>
               <IconButton onClick={handleHButtonHomeClick}>
                 <HomeIcon />
               </IconButton>
-
               <IconButton onClick={handleHButtonCartClick}>
-                <Badge badgeContent={7} color="error">
+                <Badge badgeContent={sumInCart} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
             </Box>
-            {/* //------------------ */}
-
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <StyledBadge>

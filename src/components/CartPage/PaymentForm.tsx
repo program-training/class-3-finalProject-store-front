@@ -1,10 +1,12 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { TextField, Button, Typography, Container } from "@mui/material";
-import { PaymentFormProps } from "../../types";
 import { ErrorMessage } from "@hookform/error-message";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store"
 
-const PaymentForm = ({ subtotal, shippingFee }: PaymentFormProps) => {
+const PaymentForm = () => {
   const { register, handleSubmit, formState: {errors} } = useForm();
+  const price = useAppSelector((state: RootState) => state.order.orderDetails.price)
 
   const onSubmitHandler = (data: FieldValues) => {
     data
@@ -13,13 +15,13 @@ const PaymentForm = ({ subtotal, shippingFee }: PaymentFormProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
       <Typography variant="h5" color="text.secondary" sx={{textAlign: `center`}}>
-        Subtotal ${subtotal}
+        Subtotal ${price}
       </Typography>
       <Typography variant="h5" color="text.secondary" sx={{textAlign: `center`}}>
-        ShippingFee ${shippingFee}
+        ShippingFee $25
       </Typography>
       <Typography variant="h4" sx={{textAlign: `center`}}>
-        Total ${subtotal + shippingFee}
+        Total ${price + 25}
       </Typography>
       <Container sx={{display: `flex`, flexDirection: `column`}}>
       <TextField sx={{margin: "15px 0 0  0"}}

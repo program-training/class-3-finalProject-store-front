@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import BannerProducts from "./BannerProducts";
 
-export default function ProductPage() {
+const ProductPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const { productId } = useParams();
 
@@ -27,3 +27,5 @@ export default function ProductPage() {
     </>
   );
 }
+
+export default ProductPage

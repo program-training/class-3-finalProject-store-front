@@ -5,6 +5,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+ENV VITE_BASE_URL=localhost:7000
 RUN npm run build
 
 FROM nginx:alpine

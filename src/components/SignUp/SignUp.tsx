@@ -1,25 +1,15 @@
 import { useForm, type FieldValues, UseFormWatch } from "react-hook-form";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
+import { SignUp_signInProp } from "../../types";
 
-const defaultTheme = createTheme();
-
-export default function SignUp() {
-  const navigate = useNavigate();
-  const location = useLocation();
+export default function SignUp(prop: SignUp_signInProp) {
+  const [success, setSuccess] = useState<boolean>(false);
+  const [customError, setCustomError] = useState<string | undefined>(undefined);
+  const [disable, setDisable] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -27,30 +17,30 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
   const password: UseFormWatch<Text> = watch("password");
-  const [success, setSuccess] = useState<boolean>(false);
-  const [customError, setCustomError] = useState<string | undefined>(undefined);
-  const [disable, setDisable] = useState<boolean>(false);
-
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
-      if (api.statusText === "OK") {
-        localStorage.setItem("token", JSON.stringify(api.data.token));
-        localStorage.setItem("email", JSON.stringify(data.email));
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
+      if (api.statusText === "Created") {
+        localStorage.setItem("token", JSON.stringify(api.data));
         setSuccess(true);
-        navigate(location.state?.from || "/");
+        setDisable(true);
+        setTimeout(() => {
+          prop.setIsSignedUp(false);
+          prop.setOpenDialog(false);
+          prop.setIsToken(true);
+        }, 2000);
       } else {
-        throw new Error("Existing user, please sign in");
+        throw api;
       }
     } catch (error) {
-      setCustomError((error as Error).message);
-      console.log(customError);
-      setDisable(true);
+      if (axios.isAxiosError(error)) {
+        setCustomError(error.response?.data);
+      }
     }
   };
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <Container
         sx={{
           display: disable ? "none" : "auto",
@@ -141,21 +131,29 @@ export default function SignUp() {
                 {errors.confirmPassword && <ErrorMessage errors={errors} name="confirmPassword" render={({ message }) => <p>{message}</p>} />}
               </Grid>
             </Grid>
-            {success && <span>You have successfully registered</span>}
+            {!success && <Typography>{customError}</Typography>}
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signIn" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+                <Typography>
+                  Already have an account?
+                  <Button
+                    onClick={() => {
+                      prop.setIsSignedUp(false);
+                      prop.setIsSignedIn(true);
+                    }}
+                  >
+                    Sign in
+                  </Button>{" "}
+                </Typography>
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
-      <Grid>{customError}</Grid>
-    </ThemeProvider>
+      {success && <Typography>You have successfully registered</Typography>}
+    </>
   );
 }

@@ -6,7 +6,7 @@ import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
 
 const componentsArr: React.ReactNode[] = [];
-for (let i = 0; i <= 5; i++) {
+for (let i = 0; i <= 4; i++) {
   componentsArr.push(<ProductsSkelton key={i} />);
 }
 
@@ -17,7 +17,9 @@ const BannerProducts = (prop: { categoryName: string }) => {
   useEffect(() => {
     const getBannerProducts = async () => {
       try {
-        const fetchBannerProducts = await axios(`//`, { params: prop.categoryName });
+        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/products/banners`, {
+          params: { categoryName: prop.categoryName, quantity: 5 },
+        });
         const bannerProductsList: IProduct[] = fetchBannerProducts.data;
         setBannerProducts(bannerProductsList);
       } catch (error) {
@@ -41,6 +43,14 @@ const BannerProducts = (prop: { categoryName: string }) => {
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {product.name}
+                </Typography>
+                <Typography gutterBottom component="div" sx={{ display: `flex`, margin: `50px 0 0 0` }}>
+                  <Typography variant="h6" sx={{ fontSize: `30px` }}>
+                    ${(product.salePrice * ((100 - product.discountPercentage) / 100)).toFixed(2)}
+                  </Typography>
+                  <Typography variant="h6" color="text.secondary" sx={{ textDecoration: `line-through`, padding: `0 10px 0 10px`, color: `#fd384f`, fontSize: `17px` }}>
+                    ${product.salePrice}
+                  </Typography>
                 </Typography>
               </CardContent>
             </Card>

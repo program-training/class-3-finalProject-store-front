@@ -14,8 +14,49 @@ export interface IProduct {
   };
 }
 
-type productType = Partial<IProduct>;
+export interface IProductCardProps {
+  product: IProduct;
+}
+
+export interface CartItem {
+  userId: string;
+  product: IProduct;
+}
+
 export interface UserCart {
-  product: productType;
+  productsCart: CartItem[];
+}
+
+export type Category = {
+  id: string;
+  name: string;
+  img: string;
+};
+
+export interface OrderProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
   quantity: number;
+}
+export interface ShippingDetails {
+  userId?: string;
+  address: string;
+  contactNumber: string;
+  orderType: string;
+}
+export interface Order {
+  id?: string;
+  cartItems: OrderProduct[];
+  orderTime: string;
+  status: string;
+  price: number;
+  shippingDetails: ShippingDetails;
+}
+export interface SignUp_signInProp {
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsToken: React.Dispatch<React.SetStateAction<boolean>>;
 }

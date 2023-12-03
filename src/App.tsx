@@ -1,20 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignUp from "./components/SignUp/SignUp";
 import LayersHeader from "./components/Header/Layers";
-import SignIn from "./components/SignIn/SignIn";
-import ProductPage from "./components/productPage/ProductPage";
+import ProductPage from "./components/ProductPage/Product_Page";
 import Home from "./components/Home/Home";
+import CartPage from "./components/CartPage/CartPage";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/store">
         <Routes>
           <Route path="/" element={<LayersHeader />}>
             <Route path="/" element={<Home />} />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

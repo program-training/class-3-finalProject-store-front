@@ -7,18 +7,11 @@ export default function SendOrders() {
         id: "123456",
         cartItems: [
           {
-            id: "product1",
-            name: "Product 1",
-            description: "Description for Product 1",
-            price: 20,
-            quantity: 2,
-          },
-          {
-            id: "product2",
-            name: "Product 2",
-            description: "Description for Product 2",
-            price: 30,
-            quantity: 1,
+            _id: "655f1cd4dab13343a8db7a46",
+            name: "Mayonaise",
+            description: "Description for Mayonaise",
+            price: 67,
+            quantity: 30,
           },
         ],
         orderTime: "2023-11-22T12:00:00",
@@ -31,7 +24,7 @@ export default function SendOrders() {
           orderType: "Express",
         },
       };
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/orders/order`, sampleOrder);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/orders/order`, sampleOrder);
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error sending order:", error);

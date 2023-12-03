@@ -26,6 +26,6 @@ const ProductPage = () => {
       {product && <BannerProducts categoryName={product.category} />}
     </>
   );
-}
+};
 
-export default ProductPage
+export default ProductPage;

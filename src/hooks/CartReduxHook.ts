@@ -14,7 +14,7 @@ const UserCartRedux = (method: Method, search?: string) => {
     try {
       const response = await axios({
         method,
-        url: `${import.meta.env.VITE_BASE_URL}/api/carts${search ? `/${search}` : ""}`,
+        url: `${import.meta.env.VITE_BASE_URL}/carts${search ? `/${search}` : ""}`,
         headers: {
           Authorization: `${getToken}`,
         },

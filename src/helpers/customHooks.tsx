@@ -16,7 +16,7 @@ export const useHandleUpdatePriceOnRedux = () => {
   const orderProducts = useAppSelector((state: RootState) => state.userCart.cart.productsCart);
   const price = () => {
     let price = 0;
-    orderProducts.map(product => (price += product.product.salePrice));
+    orderProducts.map((product) => (price += product.product.salePrice));
     return price;
   };
   orderDetails.price = price();
@@ -36,7 +36,7 @@ export const useHandleConfirmOrder = () => {
   orderDetails.shippingDetails.userId = userId;
   const sendOrderResult = async () => {
     try {
-      const sendOrder = await axios.post(`https://osm-1-2.onrender.com/api/orders`, orderDetails);
+      const sendOrder = await axios.post(`https://osm-1-2.onrender.com/orders`, orderDetails);
       sendOrder;
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ export const useHandleConfirmOrder = () => {
 
 const switchProductsToOrderProducts = (products: CartItem[]) => {
   const orderProducts: OrderProduct[] = [];
-  products.map(product => {
+  products.map((product) => {
     const { _id, name, description, salePrice, quantity } = product.product;
     const orderProduct: OrderProduct = {
       id: _id,

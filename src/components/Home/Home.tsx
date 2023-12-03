@@ -43,7 +43,7 @@ export default function Home() {
   };
   const getProducts = async (search: string = "") => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/all/${search}`);
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/products/all/${search}`);
       setProducts(productsResult.data);
     } catch (error) {
       console.error("Error fetching products:", error);

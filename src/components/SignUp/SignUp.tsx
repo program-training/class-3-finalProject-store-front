@@ -20,7 +20,7 @@ export default function SignUp(prop: SignUp_signInProp) {
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`, data);
+      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
       if (api.statusText === "Created") {
         localStorage.setItem("token", JSON.stringify(api.data));
         setSuccess(true);
@@ -46,7 +46,8 @@ export default function SignUp(prop: SignUp_signInProp) {
           display: disable ? "none" : "auto",
         }}
         component="main"
-        maxWidth="xs">
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -54,7 +55,8 @@ export default function SignUp(prop: SignUp_signInProp) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -85,8 +87,7 @@ export default function SignUp(prop: SignUp_signInProp) {
                     required: "password is required",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&()*-+=]).+$/,
-                      message:
-                        "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
+                      message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
                     },
                     minLength: {
                       value: 8,
@@ -110,8 +111,7 @@ export default function SignUp(prop: SignUp_signInProp) {
                     required: "password is required",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&()*-+=]).+$/,
-                      message:
-                        "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
+                      message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character (@, $, !, %, *, #, (, ), ^, =, +, &)",
                     },
                     minLength: {
                       value: 8,
@@ -121,7 +121,7 @@ export default function SignUp(prop: SignUp_signInProp) {
                       value: 20,
                       message: "password most be maximum 20 characters",
                     },
-                    validate: value => value === password || "The passwords do not match",
+                    validate: (value) => value === password || "The passwords do not match",
                   })}
                   fullWidth
                   margin="normal"
@@ -143,7 +143,8 @@ export default function SignUp(prop: SignUp_signInProp) {
                     onClick={() => {
                       prop.setIsSignedUp(false);
                       prop.setIsSignedIn(true);
-                    }}>
+                    }}
+                  >
                     Sign in
                   </Button>{" "}
                 </Typography>

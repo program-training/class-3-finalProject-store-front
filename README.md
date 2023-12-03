@@ -30,3 +30,9 @@ If you are developing a production application, we recommend updating the config
 
 VITE_BASE_URL=http://127.0.0.1:5050
 VITE_BASE_BANNERS=https://frontend-banners-deploy.onrender.com
+
+## Path
+
+path="/store" - home page
+path="/product/:productId" - product page
+path="/cart" - cart page

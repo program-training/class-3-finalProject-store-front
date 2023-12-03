@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { IProduct } from "../types";
+import { IProduct } from "../../types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ProductCard from "./ProductPage/ProductCard";
-import BannerProducts from "./ProductPage/BannerProducts";
+import ProductCard from "./ProductCard";
+import BannerProducts from "./BannerProducts";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);

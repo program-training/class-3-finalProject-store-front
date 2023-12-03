@@ -10,7 +10,7 @@ const useUserCartRedux = () => {
     const { method, search, cartItem, token } = cartHookObgect;
     const headers: { [key: string]: string } = {};
     if (token) {
-      headers["authorization"] = `${token}`;
+      headers["authorization"] = token;
     }
     try {
       const response = await axios({

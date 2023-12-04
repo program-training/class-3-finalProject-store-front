@@ -33,7 +33,7 @@ const HeaderCategory: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/products/categories`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/categories`);
         setCategories(response.data);
         setLoadingCategories(false);
       } catch (error) {

@@ -12,7 +12,7 @@ const ProductPage = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const result = await axios(`${import.meta.env.VITE_BASE_URL}/api/products/product/${productId && productId}`);
+        const result = await axios(`${import.meta.env.VITE_BASE_URL}/products/product/${productId && productId}`);
         result && setProduct(result.data);
       } catch (error) {
         console.error(error);
@@ -26,6 +26,6 @@ const ProductPage = () => {
       {product && <BannerProducts categoryName={product.category} />}
     </>
   );
-}
+};
 
-export default ProductPage
+export default ProductPage;

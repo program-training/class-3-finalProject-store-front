@@ -50,6 +50,15 @@ export const GET_CATEGORIES = gql`
   }
 `;
 
+export const GET_CART_BY_USER = gql`
+  query getCartByUser($userId: String) {
+    getCategories(userId: $userId) {
+      userId
+      product
+    }
+  }
+`;
+
 export const SIMILAR_PRODUCTS = gql`
   query SimilarProductsQuery($categoryName: String, $quantity: Int) {
     similarProducts(categoryName: $categoryName, quantity: $quantity) {

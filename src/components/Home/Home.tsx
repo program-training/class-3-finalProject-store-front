@@ -27,12 +27,12 @@ export default function Home() {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
     if (!getToken) {
-      const cartString: string | null = localStorage.getItem("cart");
-      const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      // const cartString: string | null = localStorage.getItem("cart");
+      // const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
+      // cart.push(product);
+      // localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      UserCartRedux("GET");
+      // UserCartRedux("GET");
     }
   };
 

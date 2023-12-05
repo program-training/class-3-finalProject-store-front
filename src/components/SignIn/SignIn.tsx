@@ -9,26 +9,30 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { SignUp_signInProp } from "../../types";
-
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../../graphqlQueries/mutations";
 export default function SignIn(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
+  const [login, { data, loading, error }] = useMutation(LOGIN);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (dataLogin: FieldValues) => {
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/logIn`, data);
-      if (api.statusText === "OK") {
-        localStorage.setItem("token", JSON.stringify(api.data));
+      login({ variables: { dataLogin } });
+      if (error) {
+        throw error;
+      }
+      if (!loading && data) {
+        localStorage.setItem("token", JSON.stringify(data.login));
         setSuccess(true);
         setDisable(true);
         setTimeout(() => {
@@ -36,12 +40,10 @@ export default function SignIn(prop: SignUp_signInProp) {
           prop.setOpenDialog(false);
           prop.setIsToken(true);
         }, 2000);
-      } else {
-        throw api;
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setCustomError(error.response?.data);
+      if (error instanceof Error) {
+        setCustomError(error.message);
       }
     }
   };

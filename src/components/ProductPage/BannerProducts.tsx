@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { IProduct } from "../../types";
-import axios from "axios";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { SIMILAR_PRODUCTS } from "../../graphqlQueries/queries";
 
 const componentsArr: React.ReactNode[] = [];
 for (let i = 0; i <= 4; i++) {
@@ -13,31 +14,24 @@ for (let i = 0; i <= 4; i++) {
 const BannerProducts = (prop: { categoryName: string }) => {
   const navigate = useNavigate();
   const [bannerProducts, setBannerProducts] = useState<IProduct[] | null>(null);
+  const { data, loading, error } = useQuery(SIMILAR_PRODUCTS, { variables: { categoryName: prop.categoryName, quantity: 5 } });
 
   useEffect(() => {
-    const getBannerProducts = async () => {
-      try {
-        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/products/banners`, {
-          params: { categoryName: prop.categoryName, quantity: 5 },
-        });
-        const bannerProductsList: IProduct[] = fetchBannerProducts.data;
-        setBannerProducts(bannerProductsList);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getBannerProducts();
-  }, []);
+    setBannerProducts(data.similarProducts);
+    if (error) {
+      console.error(error);
+    }
+  }, [data]);
 
   return (
     <>
-      {!bannerProducts ? (
+      {loading ? (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
           {componentsArr}
         </Box>
       ) : (
         <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
-          {bannerProducts.map((product) => (
+          {bannerProducts?.map((product) => (
             <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/product/${product._id}`)}>
               <CardMedia sx={{ height: 140 }} image={product.image.large} title="green iguana" />
               <CardContent>

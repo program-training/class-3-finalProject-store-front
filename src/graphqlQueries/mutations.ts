@@ -34,3 +34,20 @@ export const POST_ORDER = gql`
     }
   }
 `;
+
+export const DELETE_CART_ITEM = gql`
+  mutation DeleteCartItem($deleteCartInput: DeleteCartInput) {
+    deleteCartItem(deleteCartInput: $deleteCartInput) {
+      userId
+      product
+    }
+  }
+`;
+export const ADD_CART_ITEM = gql`
+  mutation AddCartItem($cartItem: CartItemInput!) {
+    addCartItem(cartItem: $cartItem) {
+      userId
+      product
+    }
+  }
+`;

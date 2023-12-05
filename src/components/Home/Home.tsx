@@ -8,7 +8,7 @@ import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "./HeaderCategory";
-import UserCartRedux from "../../hooks/CartReduxHook";
+import UserCartRedux from "../../hooks/GetProducts";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../graphqlQueries/queries";
 

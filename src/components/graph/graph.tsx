@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 import { CartReport, GraphType } from "../../types";
 import { Box } from "@mui/material";
 

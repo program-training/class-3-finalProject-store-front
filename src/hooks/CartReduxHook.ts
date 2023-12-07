@@ -1,23 +1,23 @@
-import axios, { Method } from "axios";
+import axios from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
+import { CartHookObgect } from "../types";
 
-const UserCartRedux = (method: Method, search?: string) => {
+const useUserCartRedux = () => {
   const dispatch = useAppDispatch();
-  const getToken = localStorage.getItem("token");
 
-  if (!getToken) {
-    throw new Error("Token is not found");
-  }
-
-  const fetchCart = async () => {
+  const fetchCart = async (cartHookObgect: CartHookObgect) => {
+    const { method, search, cartItem, token } = cartHookObgect;
+    const headers: { [key: string]: string } = {};
+    if (token) {
+      headers["authorization"] = token;
+    }
     try {
       const response = await axios({
         method,
-        url: `${import.meta.env.VITE_BASE_URL}/carts${search ? `/${search}` : ""}`,
-        headers: {
-          Authorization: `${getToken}`,
-        },
+        url: `${import.meta.env.VITE_BASE_URL}/api/carts${search ? `${search}` : ""}`,
+        data: { cartItem: cartItem },
+        headers: headers as Record<string, string>,
       });
 
       if (response.statusText === "OK") {
@@ -30,7 +30,8 @@ const UserCartRedux = (method: Method, search?: string) => {
       console.error(err);
     }
   };
+
   return fetchCart;
 };
 
-export default UserCartRedux;
+export default useUserCartRedux;

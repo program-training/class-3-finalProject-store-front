@@ -1,3 +1,5 @@
+import { Method } from "axios";
+
 export interface IProduct {
   _id: string;
   name: string;
@@ -13,7 +15,12 @@ export interface IProduct {
     alt: string;
   };
 }
-
+export interface CartHookObgect {
+  method: Method;
+  token: string | null;
+  cartItem?: IProduct;
+  search?: string;
+}
 export interface IProductCardProps {
   product: IProduct;
 }
@@ -60,3 +67,19 @@ export interface SignUp_signInProp {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setIsToken: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export interface CartReport {
+  _id?: string;
+  user_id: string;
+  product_id: string;
+  time: {
+    date: {
+      year: number;
+      month: number;
+      day: number;
+    };
+    hour: number;
+  };
+}
+
+export type GraphType = { [key: string]: number; };
+

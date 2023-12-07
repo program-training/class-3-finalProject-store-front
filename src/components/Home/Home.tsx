@@ -9,7 +9,6 @@ import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "./HeaderCategory";
-import UserCartRedux from "../../hooks/CartReduxHook";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -25,13 +24,15 @@ export default function Home() {
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
+
     if (!getToken) {
       const cartString: string | null = localStorage.getItem("cart");
       const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      UserCartRedux("GET");
+      console.log("Cart: ");
+      
     }
   };
 
@@ -43,14 +44,16 @@ export default function Home() {
   };
   const getProducts = async (search: string = "") => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/products/all/${search}`);
-      setProducts(productsResult.data);
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/all/${search}`);
+      setProducts(productsResult.data);    
+      console.log(productsResult);
+        
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
   useEffect(() => {
-    getProducts(search);
+     getProducts(search);    
   }, [search]);
   return (
     <>

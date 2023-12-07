@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 import { CartReport, GraphType } from "../../types";
+import { Box } from "@mui/material";
 
 export default function Graph() {
   const [data, setData] = useState<CartReport[]>();
@@ -28,9 +29,8 @@ export default function Graph() {
       const newGraphData: GraphType = {};
 
       data.forEach((item) => {
-        const { year, month, day } = item.time.date;
         const hour = item.time.hour.toString();
-        const key = `${year}-${month}-${day} ${hour}`;
+        const key = `${hour}:00`;
 
         if (newGraphData[key]) {
           newGraphData[key] += 1;
@@ -44,13 +44,16 @@ export default function Graph() {
   }, [data]);
 
   return (
-    <>
-      {graphData && (
-        <VictoryChart domainPadding={{ x: 20 }}>
-          <VictoryAxis tickValues={Object.keys(graphData)} />
-          <VictoryBar data={Object.entries(graphData).map(([hour, quantity]) => ({ hour, quantity }))} x="hour" y="quantity" />
-        </VictoryChart>
-      )}
-    </>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ width: "70%" }}>
+        {graphData && (
+          <VictoryChart width={650} height={300} domainPadding={{ x: 13 }}>
+            <VictoryAxis tickValues={Object.keys(graphData)} />
+            <VictoryAxis dependentAxis tickFormat={(x) => x} style={{ tickLabels: { fill: "#8569" } }} />
+            <VictoryBar data={Object.entries(graphData).map(([hour, quantity]) => ({ hour, quantity }))} x="hour" y="quantity" style={{ data: { fill: "red" } }} />
+          </VictoryChart>
+        )}
+      </Box>
+    </Box>
   );
 }

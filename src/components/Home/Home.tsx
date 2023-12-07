@@ -9,7 +9,6 @@ import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "./HeaderCategory";
-import UserCartRedux from "../../hooks/CartReduxHook";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ export default function Home() {
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      // UserCartRedux("GET");
     }
   };
 

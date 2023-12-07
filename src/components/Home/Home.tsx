@@ -31,6 +31,8 @@ export default function Home() {
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
+      console.log("Cart: ");
+      
     }
   };
 

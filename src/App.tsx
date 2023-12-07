@@ -3,7 +3,6 @@ import LayersHeader from "./components/Header/Layers";
 import ProductPage from "./components/ProductPage/Product_Page";
 import Home from "./components/Home/Home";
 import CartPage from "./components/CartPage/CartPage";
-
 function App() {
   return (
     <>

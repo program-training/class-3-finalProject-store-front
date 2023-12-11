@@ -8,7 +8,7 @@ import ProductsSkelton from "./ProductsSkelton";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import HeaderCategory from "./HeaderCategory";
-import UserCartRedux from "../../hooks/GetProducts";
+// import UserCartRedux from "../../hooks/GetProducts";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../graphqlQueries/queries";
 
@@ -28,10 +28,10 @@ export default function Home() {
     const getToken = localStorage.getItem("token");
 
     if (!getToken) {
-      // const cartString: string | null = localStorage.getItem("cart");
-      // const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
-      // cart.push(product);
-      // localStorage.setItem("cart", JSON.stringify(cart));
+      const cartString: string | null = localStorage.getItem("cart");
+      const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
     } else {
       // UserCartRedux("GET");
     }
@@ -47,7 +47,7 @@ export default function Home() {
   useEffect(() => {
     if (error) {
       console.error(error);
-    }
+    }    
     setProducts(data.getAllProducts);
   }, [search]);
   return (

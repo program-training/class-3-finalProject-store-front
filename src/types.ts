@@ -67,19 +67,9 @@ export interface SignUp_signInProp {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setIsToken: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export interface CartReport {
-  _id?: string;
-  user_id: string;
-  product_id: string;
-  time: {
-    date: {
-      year: number;
-      month: number;
-      day: number;
-    };
-    hour: number;
-  };
-}
+export type CartReport = {
+  hour: number;
+  quantity: number;
+};
 
-export type GraphType = { [key: string]: number; };
-
+export type GraphType = { [key: number]: number };

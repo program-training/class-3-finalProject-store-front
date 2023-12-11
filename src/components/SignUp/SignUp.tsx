@@ -1,16 +1,17 @@
 import { useForm, type FieldValues, UseFormWatch } from "react-hook-form";
 import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { CartHookObgect, IProduct, SignUp_signInProp } from "../../types";
-import useUserCartRedux from "../../hooks/CartReduxHook";
+import { SignUp_signInProp } from "../../types";
+import { REGISTER } from "../../graphqlQueries/mutations";
+import { useMutation } from "@apollo/client";
 
 export default function SignUp(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
+  const [signUp, { data, loading, error }] = useMutation(REGISTER);
   const {
     register,
     handleSubmit,
@@ -18,30 +19,15 @@ export default function SignUp(prop: SignUp_signInProp) {
     formState: { errors },
   } = useForm();
   const password: UseFormWatch<Text> = watch("password");
-  const fetchCart = useUserCartRedux();
-  const onSubmit = async (data: FieldValues) => {
-    data = { email: data.email, password: data.password };
+  const onSubmit = async (dataRegister: FieldValues) => {
+    dataRegister = { email: dataRegister.email, password: dataRegister.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
-      if (api.statusText === "Created") {
-        localStorage.setItem("token", JSON.stringify(api.data));
-        const getToken = localStorage.getItem("token");
-        const getCart: string | null = localStorage.getItem("cart");
-        const cartParse: IProduct[] = getCart ? JSON.parse(getCart) : [];
-        console.log(cartParse);
-        
-        if (cartParse) {
-          for (let i = 0; i < cartParse.length; i++) {
-            const cartHookObject: CartHookObgect = {
-              method: "post",
-              search: "addItem",
-              cartItem: cartParse[i],
-              token: getToken,
-            };
-            await fetchCart(cartHookObject);
-          }
-        }
-
+      signUp({ variables: { dataRegister } });
+      if (error) {
+        throw error;
+      }
+      if (!loading && data) {
+        localStorage.setItem("token", JSON.stringify(data.register));
         setSuccess(true);
         setDisable(true);
         setTimeout(() => {
@@ -49,12 +35,10 @@ export default function SignUp(prop: SignUp_signInProp) {
           prop.setOpenDialog(false);
           prop.setIsToken(true);
         }, 2000);
-      } else {
-        throw api;
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setCustomError(error.response?.data);
+      if (error instanceof Error) {
+        setCustomError(error.message);
       }
     }
   };

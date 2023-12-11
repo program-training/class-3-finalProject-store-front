@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import { IProduct } from "../../types";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import BannerProducts from "./BannerProducts";
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCT } from "../../graphqlQueries/queries";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const { productId } = useParams();
+  const { error, data } = useQuery(GET_PRODUCT, { variables: { productId: productId } });
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const result = await axios(`${import.meta.env.VITE_BASE_URL}/products/product/${productId && productId}`);
-        result && setProduct(result.data);
-      } catch (error) {
-        console.error(error);
-      }
+    if (error) {
+      console.error(error);
     }
-    getData();
+    setProduct(data.getProduct);
   }, []);
   return (
     <>

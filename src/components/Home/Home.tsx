@@ -25,13 +25,12 @@ export default function Home() {
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
+
     if (!getToken) {
       const cartString: string | null = localStorage.getItem("cart");
       const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
-    } else {
-      // UserCartRedux("GET");
     }
   };
 
@@ -41,7 +40,6 @@ export default function Home() {
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
   };
-
   useEffect(() => {
     if (error) {
       console.error(error);

@@ -101,3 +101,18 @@ export const GET_ORDER_BY_USER = gql`
     }
   }
 `;
+
+export const GET_TRRIGER_CART= gql`
+  query getTrrigerCart{
+    getTrrigerCart {
+      trrigerCart
+    }
+  }
+`;
+export const GET_TRRIGER_POSTGRES= gql`
+  query getTrrigerPostgres{
+    getTrrigerPostgres {
+      trrigerUser
+    }
+  }
+`;

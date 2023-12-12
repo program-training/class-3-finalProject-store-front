@@ -2,55 +2,45 @@ import { useEffect, useState } from "react";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 import { GraphType } from "../../types";
 import { Box } from "@mui/material";
-import axios from "axios";
-
-// ... הייבואים ...
+import { useQuery } from "@apollo/client";
+import { GET_TRRIGER_POSTGRES } from "../../graphqlQueries/queries";
 
 export default function UserGraph() {
-  const [data, setData] = useState<Record<number, number>>();
+  const [dataTriger, setData] = useState<Record<number, number>>();
   const [graphData, setGraphData] = useState<GraphType>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { loading, data, error } = useQuery(GET_TRRIGER_POSTGRES);
 
   useEffect(() => {
     async function getData() {
-      try {
-        const api = await axios.get(`${import.meta.env.VITE_BASE_URL}/triggers/triggersPostgres`);
-        if (api.status !== 200) {
-          throw new Error("Failed to fetch data");
-        } else {
-          setData(api.data);
-        }
-      } catch (error) {
+      if (error) {
         console.error(error);
-        setError("Failed to fetch data");
-      } finally {
-        setLoading(false);
+      } else {
+        setData(data?.getTrrigerPostgres);
       }
     }
     getData();
-  }, []);
+  }, [data]);
 
   useEffect(() => {
-    if (data) {
-      const sortedHours = Object.keys(data)
+    if (dataTriger) {
+      const sortedHours = Object.keys(dataTriger)
         .map(Number)
         .sort((a, b) => a - b);
       const newGraphData: GraphType = {};
 
       sortedHours.forEach((hour) => {
-        newGraphData[hour] = data[hour];
+        newGraphData[hour] = dataTriger[hour];
       });
 
       setGraphData(newGraphData);
     }
-  }, [data]);
+  }, [dataTriger]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {graphData && (
+      {error && <p>Error loading data</p>}
+      {graphData && Object.keys(graphData).length > 0 && (
         <>
           <VictoryChart width={650} height={300} domainPadding={{ x: 13 }}>
             <VictoryAxis tickValues={Object.keys(graphData)} />

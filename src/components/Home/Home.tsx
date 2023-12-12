@@ -32,7 +32,6 @@ export default function Home() {
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
       console.log("Cart: ");
-      
     }
   };
 
@@ -44,16 +43,15 @@ export default function Home() {
   };
   const getProducts = async (search: string = "") => {
     try {
-      const productsResult = await axios.get(`${env.VITE_BASE_URL}/api/products/all/${search}`);
-      setProducts(productsResult.data);    
+      const productsResult = await axios.get(`${env.VITE_BASE_URL}/products/all/${search}`);
+      setProducts(productsResult.data);
       console.log(productsResult);
-        
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
   useEffect(() => {
-     getProducts(search);    
+    getProducts(search);
   }, [search]);
   return (
     <>

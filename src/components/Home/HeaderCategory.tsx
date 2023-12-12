@@ -1,40 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Box, Stack, Chip, Avatar } from "@mui/material";
-import { useAppDispatch } from "../../redux/hooks";
 import { setSearch } from "../../redux/searchSlice";
-import axios from "axios";
 import { Category } from "../../types";
 import Banners from "../Banners/Banners";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES } from "../../graphqlQueries/queries";
+import { useAppDispatch } from "../../redux/hooks";
 
 const HeaderCategory: React.FC = () => {
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [banner, setBanner] = useState<boolean>(false);
   const [bannerName, setBannerName] = useState<string>("");
+  const { data, loading, error } = useQuery(GET_CATEGORIES);
   const dispatch = useAppDispatch();
 
-
-
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/categories`);
-        setCategories(response.data);
-        setLoadingCategories(false);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setLoadingCategories(false);
-      }
-    };
-
-    fetchCategories();
+    if (error) {
+      console.error(error);
+    }
+    loading ? setLoadingCategories(false) : setLoadingCategories(true);
+    setCategories(data.getCategories);
   }, []);
-
-  const handleSearchUpdate = (newSearch: string) => {
+  const handleProductByCategoryName = (newSearch: string) => {
     dispatch(setSearch(newSearch));
     setBanner(true);
   };
-
   return (
     <>
       {banner && <Banners categoryName={bannerName} />}
@@ -50,7 +41,7 @@ const HeaderCategory: React.FC = () => {
                 variant="outlined"
                 sx={{ height: "60px", margin: "10px" }}
                 onClick={() => {
-                  handleSearchUpdate(category.name);
+                  handleProductByCategoryName(category.name);
                   setBannerName("exampleCategory_a");
                 }}
               />

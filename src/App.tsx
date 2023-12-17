@@ -4,7 +4,7 @@ import ProductPage from "./components/ProductPage/Product_Page";
 import Home from "./components/Home/Home";
 import CartPage from "./components/CartPage/CartPage";
 import Graph from "./components/graph/graph";
-import UserGraph from "./components/UserGraph/UserGraph";
+import UserGraph from "./components/graph/UserGraph";
 function App() {
   return (
     <>

@@ -9,19 +9,24 @@ import { useAppDispatch } from "../../redux/hooks";
 
 const HeaderCategory: React.FC = () => {
   const [categories, setCategories] = useState<Category[] | null>(null);
-  const [loadingCategories, setLoadingCategories] = useState(true);
   const [banner, setBanner] = useState<boolean>(false);
   const [bannerName, setBannerName] = useState<string>("");
   const { data, loading, error } = useQuery(GET_CATEGORIES);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (error) {
-      console.error(error);
+    async function getCategory() {
+      try {
+        if (!loading && !error) {
+          setCategories(await data.getCategories);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    loading ? setLoadingCategories(false) : setLoadingCategories(true);
-    setCategories(data.getCategories);
-  }, []);
+    getCategory();
+  }, [loading, data]);
+
   const handleProductByCategoryName = (newSearch: string) => {
     dispatch(setSearch(newSearch));
     setBanner(true);
@@ -30,8 +35,8 @@ const HeaderCategory: React.FC = () => {
     <>
       {banner && <Banners categoryName={bannerName} />}
       <Box sx={{ margin: "7px" }}>
-        {loadingCategories && <p>Loading categories...</p>}
-        {categories && !loadingCategories && (
+        {loading && <p>Loading categories...</p>}
+        {categories && !loading && (
           <Stack direction="row" spacing={1}>
             {categories.map((category, index) => (
               <Chip

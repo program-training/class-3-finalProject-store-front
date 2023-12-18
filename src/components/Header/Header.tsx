@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { HeaderAvailable } from "./AvatarAvailable";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 const settings = ["signUp", "signIn"];
 
@@ -115,6 +116,13 @@ export function Header() {
                 <Badge badgeContent={sumInCart} color="error">
                   <ShoppingCartIcon />
                 </Badge>
+              </IconButton>
+              <IconButton
+                onClick={() => {
+                  navigate("/graph");
+                }}
+              >
+                <BarChartIcon />
               </IconButton>
             </Box>
             {isToken ? (

@@ -2,18 +2,22 @@ import { gql } from "@apollo/client";
 
 export const REGISTER = gql`
   mutation Register($user: User!) {
-    register(user: $user)
+    register(user: $user) {
+      token
+    }
   }
 `;
 
 export const LOGIN = gql`
   mutation Login($user: User!) {
-    login(user: $user)
+    login(user: $user) {
+      token
+    }
   }
 `;
 
 export const POST_ORDER = gql`
-  mutation postOrderCart($order: Order!) {
+  mutation PostOrderCart($order: Order!) {
     postOrderCart(order: $order) {
       id
       orderTime

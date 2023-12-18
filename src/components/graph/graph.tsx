@@ -3,29 +3,28 @@ import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 import { CartReport, GraphType } from "../../types";
 import { Box } from "@mui/material";
 import { useQuery } from "@apollo/client";
-import { GET_TRRIGER_CART } from "../../graphqlQueries/queries";
+import { GET_TRIGGER_CART } from "../../graphqlQueries/queries";
 
 export default function Graph() {
-  const [dataTriger, setData] = useState<CartReport[]>();
+  const [dataTrigger, setData] = useState<CartReport[]>();
   const [graphData, setGraphData] = useState<GraphType>({});
-  const { loading, data, error } = useQuery(GET_TRRIGER_CART);
+  const { loading, data, error } = useQuery(GET_TRIGGER_CART);
 
   useEffect(() => {
     async function getData() {
       if (error) {
         console.error(error);
-      } else {
-        setData(data?.getTrrigerCart);
       }
+      if (!loading && !error) setData(data.getTriggerCart);
     }
     getData();
-  }, [data]);
+  }, [data, loading]);
 
   useEffect(() => {
-    if (dataTriger && Array.isArray(dataTriger)) {
+    if (dataTrigger && Array.isArray(dataTrigger)) {
       const newGraphData: GraphType = {};
 
-      dataTriger.forEach((report) => {
+      dataTrigger.forEach((report) => {
         const hour = report.hour;
         const quantity = report.quantity;
 
@@ -34,7 +33,7 @@ export default function Graph() {
 
       setGraphData(newGraphData);
     }
-  }, [dataTriger]);
+  }, [dataTrigger]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>

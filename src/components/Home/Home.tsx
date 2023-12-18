@@ -15,7 +15,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const search = useAppSelector((state: RootState) => state.search.name);
-  const { loading, data, error } = useQuery(GET_PRODUCTS, { variables: { search } });
+  const { loading, data, error } = useQuery(GET_PRODUCTS, { variables: { categoryName: search } });
 
   const componentsArr: ReactNode[] = [];
   for (let i = 0; i <= 6; i++) {
@@ -25,7 +25,6 @@ export default function Home() {
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
     event.stopPropagation();
     const getToken = localStorage.getItem("token");
-
     if (!getToken) {
       const cartString: string | null = localStorage.getItem("cart");
       const cart: IProduct[] = cartString ? JSON.parse(cartString) : [];
@@ -40,12 +39,21 @@ export default function Home() {
   const handelNavAndRedux = (productId: string) => {
     productId && navigate(`/product/${productId}`);
   };
+
   useEffect(() => {
-    if (error) {
-      console.error(error);
+    async function getProducts() {
+      try {
+        if (error) throw error;
+        if (!loading && !error) {
+          setProducts(await data.getAllProducts);
+        }
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
     }
-    setProducts(data.getAllProducts);
-  }, [search]);
+    getProducts();
+  }, [loading, data, search]);
+
   return (
     <>
       {!loading ? (

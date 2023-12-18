@@ -9,14 +9,22 @@ import { GET_PRODUCT } from "../../graphqlQueries/queries";
 const ProductPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const { productId } = useParams();
-  const { error, data } = useQuery(GET_PRODUCT, { variables: { productId: productId } });
+  const { error, data, loading } = useQuery(GET_PRODUCT, { variables: { productId } });
 
   useEffect(() => {
-    if (error) {
-      console.error(error);
+    async function getProduct() {
+      try {
+        if (error) throw error;
+        if (!loading && !error) {
+          setProduct(await data.getProduct);
+          console.log(data.getProduct);
+        }
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
     }
-    setProduct(data.getProduct);
-  }, []);
+    getProduct();
+  }, [loading, data]);
   return (
     <>
       {product && <ProductCard product={product} />}

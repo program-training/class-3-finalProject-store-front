@@ -17,11 +17,18 @@ const BannerProducts = (prop: { categoryName: string }) => {
   const { data, loading, error } = useQuery(SIMILAR_PRODUCTS, { variables: { categoryName: prop.categoryName, quantity: 5 } });
 
   useEffect(() => {
-    setBannerProducts(data.similarProducts);
-    if (error) {
-      console.error(error);
+    async function getSimilar() {
+      try {
+        if (error) throw error;
+        if (!loading && !error) {
+          setBannerProducts(data.similarProducts);
+        }
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
     }
-  }, [data]);
+    getSimilar();
+  }, [loading, data]);
 
   return (
     <>

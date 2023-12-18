@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_PRODUCTS = gql`
-  query getAllProducts($categoryName: String) {
+  query GetAllProducts($categoryName: String) {
     getAllProducts(categoryName: $categoryName) {
       _id
       name
@@ -21,7 +21,7 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_PRODUCT = gql`
-  query getProduct($productId: ID!) {
+  query GetProduct($productId: ID!) {
     getProduct(productId: $productId) {
       _id
       name
@@ -41,7 +41,7 @@ export const GET_PRODUCT = gql`
 `;
 
 export const GET_CATEGORIES = gql`
-  query getCategories {
+  query GetCategories {
     getCategories {
       _id
       name
@@ -51,7 +51,7 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GET_CART_BY_USER = gql`
-  query getCartByUser($userId: String) {
+  query GetCartByUser($userId: String) {
     getCategories(userId: $userId) {
       userId
       product
@@ -102,17 +102,17 @@ export const GET_ORDER_BY_USER = gql`
   }
 `;
 
-export const GET_TRRIGER_CART= gql`
-  query getTrrigerCart{
-    getTrrigerCart {
-      trrigerCart
+export const GET_TRIGGER_CART = gql`
+  query GetTriggerCart {
+    getTriggerCart {
+      triggerCart
     }
   }
 `;
-export const GET_TRRIGER_POSTGRES= gql`
-  query getTrrigerPostgres{
-    getTrrigerPostgres {
-      trrigerUser
+export const GET_TRIGGER_POSTGRES = gql`
+  query GetTriggerPostgres {
+    getTriggerPostgres {
+      triggerUser
     }
   }
 `;

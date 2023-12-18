@@ -3,38 +3,37 @@ import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 import { GraphType } from "../../types";
 import { Box } from "@mui/material";
 import { useQuery } from "@apollo/client";
-import { GET_TRRIGER_POSTGRES } from "../../graphqlQueries/queries";
+import { GET_TRIGGER_POSTGRES } from "../../graphqlQueries/queries";
 
 export default function UserGraph() {
-  const [dataTriger, setData] = useState<Record<number, number>>();
+  const [dataTrigger, setData] = useState<Record<number, number>>();
   const [graphData, setGraphData] = useState<GraphType>({});
-  const { loading, data, error } = useQuery(GET_TRRIGER_POSTGRES);
+  const { loading, data, error } = useQuery(GET_TRIGGER_POSTGRES);
 
   useEffect(() => {
     async function getData() {
       if (error) {
         console.error(error);
-      } else {
-        setData(data?.getTrrigerPostgres);
       }
+      if (!loading && !error) setData(data.getTriggerPostgres);
     }
     getData();
-  }, [data]);
+  }, [data, loading]);
 
   useEffect(() => {
-    if (dataTriger) {
-      const sortedHours = Object.keys(dataTriger)
+    if (dataTrigger) {
+      const sortedHours = Object.keys(dataTrigger)
         .map(Number)
         .sort((a, b) => a - b);
       const newGraphData: GraphType = {};
 
       sortedHours.forEach((hour) => {
-        newGraphData[hour] = dataTriger[hour];
+        newGraphData[hour] = dataTrigger[hour];
       });
 
       setGraphData(newGraphData);
     }
-  }, [dataTriger]);
+  }, [dataTrigger]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>

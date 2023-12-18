@@ -12,6 +12,7 @@ export default function SignUp(prop: SignUp_signInProp) {
   const [customError, setCustomError] = useState<string | undefined>(undefined);
   const [disable, setDisable] = useState<boolean>(false);
   const [signUp, { data, loading, error }] = useMutation(REGISTER);
+
   const {
     register,
     handleSubmit,
@@ -21,12 +22,15 @@ export default function SignUp(prop: SignUp_signInProp) {
   const password: UseFormWatch<Text> = watch("password");
   const onSubmit = async (dataRegister: FieldValues) => {
     dataRegister = { email: dataRegister.email, password: dataRegister.password };
+
     try {
-      signUp({ variables: { dataRegister } });
+      const test = await signUp({ variables: { user: dataRegister } });
+      console.log(test);
       if (error) {
         throw error;
       }
       if (!loading && data) {
+        console.log(data.register);
         localStorage.setItem("token", JSON.stringify(data.register));
         setSuccess(true);
         setDisable(true);

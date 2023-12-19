@@ -1,34 +1,31 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_CREDENTIALS = credentials('Benny')
+    }
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
                 script {
-                    def pullRequestBranch = env.GITHUB_PR_SOURCE_BRANCH
-                    checkout([$class: 'GitSCM', branches: [[name: "*/${pullRequestBranch}"]], userRemoteConfigs: [[url: 'https://github.com/program-training/class-3-finalProject-store-front.git']]])
+                        echo 'Building Front...'
+                        sh 'docker build -t $DOCKER_CREDENTIALS_USR/store-front:latest .'
                 }
             }
         }
-        stage('clean work space'){
-            steps{
-                script {
-                    sh 'npm cache clean --force'
+        stage('dockerhub login') {
+            steps {
+                script{
+                    sh 'echo "Logging in to Dockerhub..."'
+                    sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+                    sh 'echo "Login Completed"'
                 }
             }
         }
-        stage('Install Dependencies') {
+        stage('dockerhub push') {
             steps {
                 script {
-                    echo 'Installing dependencies...'
-                    sh 'npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint'
-                }
-            }
-        }
-        stage('client lint') {
-            steps {
-                script {
-                    sh 'echo "linting..."'
-                    sh 'npm run lint'
+                    sh 'echo "Pushing..."'
+                    sh 'docker push $DOCKER_CREDENTIALS_USR/store-front:latest'
                 }
             }
         }
@@ -36,11 +33,11 @@ pipeline {
     post {
         success {
             script {
-                echo 'Linting passed. You may now merge.'
+                echo 'Building passed. You may now merge.'
                 setGitHubPullRequestStatus(
                     state: 'SUCCESS',
-                    context: 'class3_store_front_lint',
-                    message: 'lint passed',
+                    context: 'class3_store_front_build',
+                    message: 'build passed',
                 )
             }
         }
@@ -49,9 +46,15 @@ pipeline {
                 echo 'Pipeline failed. Blocking pull request merge.'
                 setGitHubPullRequestStatus(
                     state: 'FAILURE',
-                    context: 'class3_store_front_lint',
-                    message: 'lint failed. Run npm run lint to see errors',
+                    context: 'class3_store_front_build',
+                    message: 'build failed',
                 )
+            }
+        }
+        always {
+            script {
+                echo 'Cleaning workspace...'
+                sh 'docker rmi $DOCKER_CREDENTIALS_USR/store-front:latest'
             }
         }
     }

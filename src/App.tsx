@@ -4,7 +4,6 @@ import ProductPage from "./components/ProductPage/Product_Page";
 import Home from "./components/Home/Home";
 import CartPage from "./components/CartPage/CartPage";
 import Graph from "./components/graph/graph";
-import UserGraph from "./components/graph/UserGraph";
 function App() {
   return (
     <>
@@ -15,7 +14,6 @@ function App() {
             <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/graph" element={<Graph />} />
-            <Route path="/userGraph" element={<UserGraph />} />
           </Route>
         </Routes>
       </BrowserRouter>

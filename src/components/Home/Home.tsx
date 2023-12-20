@@ -46,6 +46,7 @@ export default function Home() {
         if (error) throw error;
         if (!loading && !error) {
           setProducts(await data.getAllProducts);
+          console.log(data.getAllProducts);
         }
       } catch (error) {
         if (error instanceof Error) console.log(error.message);

@@ -102,17 +102,13 @@ export const GET_ORDER_BY_USER = gql`
   }
 `;
 
-export const GET_TRIGGER_CART = gql`
-  query GetTriggerCart {
-    getTriggerCart {
-      triggerCart
-    }
+export const GET_TRIGGER_MONGO = gql`
+  query {
+    mongoTrigger
   }
 `;
 export const GET_TRIGGER_POSTGRES = gql`
-  query GetTriggerPostgres {
-    getTriggerPostgres {
-      triggerUser
-    }
+  query {
+    postgresTrigger
   }
 `;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Stack, Chip, Avatar } from "@mui/material";
 import { setSearch } from "../../redux/searchSlice";
-import { Category } from "../../types";
+import { Category } from "../../helpers/types";
 import Banners from "../Banners/Banners";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../../graphqlQueries/queries";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IProduct } from "../../types";
+import { IProduct } from "../../helpers/types";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";

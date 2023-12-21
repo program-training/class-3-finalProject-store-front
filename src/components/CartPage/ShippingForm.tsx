@@ -1,7 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { TextField, Button, Typography, Container, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { ErrorMessage } from "@hookform/error-message";
-import { ShippingDetails } from "../../types";
+import { ShippingDetails } from "../../helpers/types";
 
 const ShippingForm = () => {
   const {
@@ -26,30 +26,15 @@ const ShippingForm = () => {
         Shipping Information
       </Typography>
       <Container sx={{ display: `flex`, flexDirection: `column` }}>
-        <TextField
-          sx={{ margin: "15px 0 0 0" }}
-          {...register("phoneNumber", { required: "* Enter phone number" })}
-          label="Phone Number"
-          variant="outlined"
-        />
+        <TextField sx={{ margin: "15px 0 0 0" }} {...register("phoneNumber", { required: "* Enter phone number" })} label="Phone Number" variant="outlined" />
         {errors.phoneNumber && <ErrorMessage errors={errors} name="phoneNumber" render={({ message }) => <Typography>{message}</Typography>} />}
         <TextField sx={{ margin: "15px 0 0 0" }} {...register("address", { required: "* Enter address" })} label="Address" variant="outlined" />
         {errors.address && <ErrorMessage errors={errors} name="address" render={({ message }) => <Typography>{message}</Typography>} />}
         <TextField sx={{ margin: "15px 0 0 0" }} {...register("city", { required: "* Enter city" })} label="City" variant="outlined" />
         {errors.city && <ErrorMessage errors={errors} name="city" render={({ message }) => <Typography>{message}</Typography>} />}
-        <TextField
-          sx={{ margin: "15px 0 0 0" }}
-          {...register("state", { required: "* Enter state/province" })}
-          label="State/Province"
-          variant="outlined"
-        />
+        <TextField sx={{ margin: "15px 0 0 0" }} {...register("state", { required: "* Enter state/province" })} label="State/Province" variant="outlined" />
         {errors.state && <ErrorMessage errors={errors} name="state" render={({ message }) => <Typography>{message}</Typography>} />}
-        <TextField
-          sx={{ margin: "15px 0 0 0" }}
-          {...register("zipCode", { required: "* Enter ZIP code", valueAsNumber: true })}
-          label="ZIP Code"
-          variant="outlined"
-        />
+        <TextField sx={{ margin: "15px 0 0 0" }} {...register("zipCode", { required: "* Enter ZIP code", valueAsNumber: true })} label="ZIP Code" variant="outlined" />
         {errors.zipCode && <ErrorMessage errors={errors} name="zipCode" render={({ message }) => <Typography>{message}</Typography>} />}
         <RadioGroup defaultValue="" sx={{ display: `flex`, flexDirection: `row` }} {...register("shippingMethod")}>
           <FormControlLabel value="Pickup" control={<Radio />} label="Pickup" />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IProduct } from "../../types";
+import { IProduct } from "../../helpers/types";
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import BannerProducts from "./BannerProducts";

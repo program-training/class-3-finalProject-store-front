@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Order } from "../types";
+import { Order } from "../helpers/types";
 
 interface OrderState {
   orderDetails: Order;

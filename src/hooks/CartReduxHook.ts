@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
-import { CartHookObgect } from "../types";
+import { CartHookObgect } from "../helpers/types";
 
 const useUserCartRedux = () => {
   const dispatch = useAppDispatch();

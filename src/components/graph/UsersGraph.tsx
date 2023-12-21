@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { useQuery } from "@apollo/client";
+import { useQuery, useSubscription } from "@apollo/client";
 import { GET_TRIGGER_POSTGRES } from "../../graphqlQueries/queries";
 import { Typography } from "@mui/material";
+import { USERS_GRAPH } from "../../graphqlQueries/subscription";
 
 export default function UsersGraph() {
   const [count, setCount] = useState<number[]>();
   const { loading, data, error } = useQuery(GET_TRIGGER_POSTGRES);
+  const { loading: loadingProduct, data: dataProduct, error: errorProduct } = useSubscription(USERS_GRAPH);
 
   useEffect(() => {
     async function getData() {
       try {
-        if (error) {
-          console.error(error);
+        if (error || errorProduct) {
+          console.error(error || errorProduct);
         }
-        if (!loading && !error) setCount(data.postgresTrigger);
+        if (!loading) setCount(data.postgresTrigger);
+        if (!loadingProduct) setCount(dataProduct.triggerPostgres);
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
       }
     }
     getData();
-  }, [data, loading]);
+  }, [data, loading, dataProduct, loadingProduct]);
 
   return (
     <div>

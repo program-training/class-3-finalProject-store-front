@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { updateOrderDetails } from "../redux/orderSlice";
 import { RootState } from "../redux/store";
-import { ShippingDetails, OrderProduct, CartItem } from "../types";
+import { ShippingDetails, OrderProduct, CartItem } from "./types";
 import axios from "axios";
 
 export const useHandleShippingDetailsSubmit = (details: ShippingDetails) => {

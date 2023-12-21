@@ -3,7 +3,7 @@ import { CardActionArea, IconButton, Typography, CardMedia, CardContent, Card, B
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { CartItem } from "../../types";
+import { CartItem } from "../../helpers/types";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 
@@ -24,7 +24,7 @@ const CartItems = () => {
     <div className="product-cart">
       <h1>Shopping Cart</h1>
       <div className="products-list">
-        {products?.map(cartProduct => (
+        {products?.map((cartProduct) => (
           <Card key={cartProduct.product._id} sx={{ maxWidth: 232 }}>
             <CardActionArea>
               <CardMedia component="img" height="140" image={cartProduct.product.image.small} alt={cartProduct.product.image.alt} />

@@ -3,7 +3,7 @@ import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Containe
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signInProp } from "../../types";
+import { SignUp_signInProp } from "../../helpers/types";
 import { REGISTER } from "../../graphqlQueries/mutations";
 import { useMutation } from "@apollo/client";
 

@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
-import { SignUp_signInProp } from "../../types";
+import { SignUp_signInProp } from "../../helpers/types";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../graphqlQueries/mutations";
 

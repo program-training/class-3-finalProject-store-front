@@ -17,7 +17,7 @@ export default function Home() {
   const search = useAppSelector((state: RootState) => state.search.name);
   const { loading, data, error } = useQuery(GET_PRODUCTS, { variables: { categoryName: search } });
   const componentsArr: ReactNode[] = [];
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 0; i <= 5; i++) {
     componentsArr.push(<ProductsSkelton key={i} />);
   }
   const handleAddToCart = (event: MouseEvent, product: IProduct) => {
@@ -128,7 +128,7 @@ export default function Home() {
           ))}
         </Card>
       ) : (
-        <Box width="100%" my={4} display="flex" alignItems="center" gap={4}>
+        <Box width="100%" my={4} display="flex" alignItems="center" gap={4} flexWrap="wrap">
           {componentsArr}
         </Box>
       )}

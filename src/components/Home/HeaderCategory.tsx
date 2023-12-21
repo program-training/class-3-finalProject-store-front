@@ -37,7 +37,7 @@ const HeaderCategory: React.FC = () => {
       <Box sx={{ margin: "7px" }}>
         {loading && <p>Loading categories...</p>}
         {categories && !loading && (
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={1} flexWrap="wrap">
             {categories.map((category, index) => (
               <Chip
                 key={index}

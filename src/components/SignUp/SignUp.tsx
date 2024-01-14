@@ -5,6 +5,7 @@ import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { SignUp_signInProp } from "../../types";
+import { VITE_BASE_URL } from "../../env/env";
 
 export default function SignUp(prop: SignUp_signInProp) {
   const [success, setSuccess] = useState<boolean>(false);
@@ -20,7 +21,7 @@ export default function SignUp(prop: SignUp_signInProp) {
   const onSubmit = async (data: FieldValues) => {
     data = { email: data.email, password: data.password };
     try {
-      const api = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, data);
+      const api = await axios.post(`${VITE_BASE_URL}/users/register`, data);
       if (api.statusText === "Created") {
         localStorage.setItem("token", JSON.stringify(api.data));
         setSuccess(true);

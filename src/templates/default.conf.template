@@ -1,0 +1,13 @@
+server {
+      listen 80;
+      location / {
+        sub_filter_once on;
+        sub_filter "BASE_URL_PLACEHOLDER" ${VITE_BASE_URL};
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /index.html;
+      }
+      location /assets/ {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ =404;
+      }
+    }

@@ -5,6 +5,7 @@ import { setSearch } from "../../redux/searchSlice";
 import axios from "axios";
 import { Category } from "../../types";
 import Banners from "../Banners/Banners";
+import { VITE_BASE_URL } from "../../env/env";
 
 const HeaderCategory: React.FC = () => {
   const [categories, setCategories] = useState<Category[] | null>(null);
@@ -33,7 +34,7 @@ const HeaderCategory: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/categories`);
+        const response = await axios.get(`${VITE_BASE_URL}/products/categories`);
         setCategories(response.data);
         setLoadingCategories(false);
       } catch (error) {

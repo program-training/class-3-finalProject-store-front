@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import BannerProducts from "./BannerProducts";
+import { VITE_BASE_URL } from "../../env/env";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
@@ -12,7 +13,7 @@ const ProductPage = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const result = await axios(`${import.meta.env.VITE_BASE_URL}/products/product/${productId && productId}`);
+        const result = await axios(`${VITE_BASE_URL}/products/product/${productId && productId}`);
         result && setProduct(result.data);
       } catch (error) {
         console.error(error);

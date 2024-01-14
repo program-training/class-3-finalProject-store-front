@@ -4,6 +4,7 @@ import axios from "axios";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import ProductsSkelton from "../Home/ProductsSkelton";
 import { useNavigate } from "react-router-dom";
+import { VITE_BASE_URL } from "../../env/env";
 
 const componentsArr: React.ReactNode[] = [];
 for (let i = 0; i <= 4; i++) {
@@ -17,7 +18,7 @@ const BannerProducts = (prop: { categoryName: string }) => {
   useEffect(() => {
     const getBannerProducts = async () => {
       try {
-        const fetchBannerProducts = await axios(`${import.meta.env.VITE_BASE_URL}/products/banners`, {
+        const fetchBannerProducts = await axios(`${VITE_BASE_URL}/products/banners`, {
           params: { categoryName: prop.categoryName, quantity: 5 },
         });
         const bannerProductsList: IProduct[] = fetchBannerProducts.data;

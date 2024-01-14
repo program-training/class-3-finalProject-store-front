@@ -1,6 +1,7 @@
 import axios, { Method } from "axios";
 import { useAppDispatch } from "../redux/hooks";
 import { upDateUserCart } from "../redux/userCartSlice";
+import { VITE_BASE_URL } from "../env/env";
 
 const UserCartRedux = (method: Method, search?: string) => {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ const UserCartRedux = (method: Method, search?: string) => {
     try {
       const response = await axios({
         method,
-        url: `${import.meta.env.VITE_BASE_URL}/carts${search ? `/${search}` : ""}`,
+        url: `${VITE_BASE_URL}/carts${search ? `/${search}` : ""}`,
         headers: {
           Authorization: `${getToken}`,
         },

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { VITE_BASE_URL } from "../../env/env";
 
 export default function SendOrders() {
   const sendOrderToServer = async () => {
@@ -24,7 +25,7 @@ export default function SendOrders() {
           orderType: "Express",
         },
       };
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/orders/order`, sampleOrder);
+      const response = await axios.post(`${VITE_BASE_URL}/orders/order`, sampleOrder);
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error sending order:", error);
